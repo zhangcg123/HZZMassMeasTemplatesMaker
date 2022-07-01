@@ -1,0 +1,43 @@
+Reading cached build data
+Done: ProjectRename
+/pool/condor/dir_13625/CMSSW_10_6_12 is the CMSSW I am using on the local worker node
+/pool/condor/dir_13625
+2017 data mass2mu_corr eta pos 0 86.0 96.0 unbinned
+mu1_hzzid && mu2_hzzid && (trigger24matching1 || trigger24matching2) && RelIso1 < 0.35 && RelIso2 < 0.35 && Sip1 < 4.0 && Sip2 < 4.0 && pt1_corr > 25 && pt2_corr > 5 && abs(eta1) < 2.4 && abs(eta2) < 2.4 &&mass2mu_corr < 96.0 && mass2mu_corr > 86.0 && ((mu1_q_roc== 1 && eta1 > -2.4&& eta1 < -1.8) ||( mu2_q_roc == 1 && eta2 > -2.4&& eta2 < -1.8))
+unbinned fit
+[#1] INFO:Eval -- RooRealVar::setRange(mass2mu_corr) new range named 'refrange_fft_dcbxbw' created with bounds [86,96]
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_corr]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_corr)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x71c7960 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13cdbbc0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0 from preexisting content.
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (dcbxbw,bkg)
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (4.38025e+06) to force MIGRAD to back out of this region. Error log follows
+Parameter values: a1=6.02073, a2=0.000149319, fsig=0.53488, m=-3.02377, n1=64.6617, n2=57.4753, s=8.38085, tau=0.990813
+RooDoubleCB::dcb_fft[ x=mass2mu_corr_shifted_FFTBuffer2 xp=NULL mean=m width=s alpha1=a1 n1=n1 alpha2=a2 n2=n2 ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9525, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9535, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9545, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9555, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9565, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9575, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9585, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9595, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9605, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9615, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9625, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_corr_shifted_FFTBuffer2=3.9635, xp=NULL, mean=m=-3.02377, width=s=8.38085, alpha1=a1=6.02073, n1=n1=64.6617, alpha2=a2=0.000149319, n2=n2=57.4753
+    ... (remaining 2038 messages suppressed)
+
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_corr]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_corr)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13d6bd70 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13c748b0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0 from preexisting content.
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (dcbxbw,bkg)
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_corr]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_corr)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13af9be0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13aaa620 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0 from preexisting content.

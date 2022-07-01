@@ -1,0 +1,43 @@
+000 (2556850.030.000) 07/28 08:30:32 Job submitted from host: <188.185.70.244:9618?addrs=188.185.70.244-9618+[2001-1458-d00-7--100-2ee]-9618&alias=bigbird10.cern.ch&noUDP&sock=schedd_2037_ca81>
+...
+040 (2556850.030.000) 07/28 08:38:27 Started transferring input files
+	Transferring to host: <128.142.149.230:9618?addrs=128.142.149.230-9618+[2001-1458-301-b--100-23b]-9618&alias=b7g41n8111.cern.ch&noUDP&sock=slot1_3_19623_edb7_119430>
+...
+040 (2556850.030.000) 07/28 08:38:28 Finished transferring input files
+...
+001 (2556850.030.000) 07/28 08:38:28 Job executing on host: <128.142.149.230:9618?addrs=128.142.149.230-9618+[2001-1458-301-b--100-23b]-9618&alias=b7g41n8111.cern.ch&noUDP&sock=startd_14086_6721>
+...
+006 (2556850.030.000) 07/28 08:38:37 Image size of job updated: 269400
+	4  -  MemoryUsage of job (MB)
+	3696  -  ResidentSetSize of job (KB)
+...
+006 (2556850.030.000) 07/28 08:43:38 Image size of job updated: 626824
+	201  -  MemoryUsage of job (MB)
+	205316  -  ResidentSetSize of job (KB)
+...
+006 (2556850.030.000) 07/28 08:58:40 Image size of job updated: 799984
+	276  -  MemoryUsage of job (MB)
+	282540  -  ResidentSetSize of job (KB)
+...
+006 (2556850.030.000) 07/28 09:17:47 Image size of job updated: 802420
+	276  -  MemoryUsage of job (MB)
+	282540  -  ResidentSetSize of job (KB)
+...
+040 (2556850.030.000) 07/28 09:17:47 Started transferring output files
+...
+040 (2556850.030.000) 07/28 09:17:47 Finished transferring output files
+...
+007 (2556850.030.000) 07/28 09:17:47 Shadow exception!
+	Error from slot1_3@b7g41n8111.cern.ch: STARTER at 128.142.149.230 failed to send file(s) to <188.185.70.244:9618>; SHADOW at 188.185.70.244 failed to write to file /eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/unbinned/2017_60_120/2017_mc_mass2mu_ewk2_eta_neg_6_60_120.png: (errno 2) No such file or directory
+	44610  -  Run Bytes Sent By Job
+	55262880  -  Run Bytes Received By Job
+...
+012 (2556850.030.000) 07/28 09:17:47 Job was held.
+	Error from slot1_3@b7g41n8111.cern.ch: STARTER at 128.142.149.230 failed to send file(s) to <188.185.70.244:9618>; SHADOW at 188.185.70.244 failed to write to file /eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/unbinned/2017_60_120/2017_mc_mass2mu_ewk2_eta_neg_6_60_120.png: (errno 2) No such file or directory
+	Code 12 Subcode 2
+...
+009 (2556850.030.000) 07/28 10:47:33 Job was aborted.
+	via condor_rm (by user chenguan)
+
+	Job terminated by itself at 2021-07-28T07:17:47Z (using method 0: OF_ITS_OWN_ACCORD).
+...

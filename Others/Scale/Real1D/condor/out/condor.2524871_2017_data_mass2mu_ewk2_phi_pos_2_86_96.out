@@ -1,0 +1,43 @@
+Reading cached build data
+Done: ProjectRename
+/pool/condor/dir_62660/CMSSW_10_6_12 is the CMSSW I am using on the local worker node
+/pool/condor/dir_62660
+2017 data mass2mu_ewk2 phi pos 2 86.0 96.0 unbinned
+mu1_hzzid && mu2_hzzid && (trigger24matching1 || trigger24matching2) && RelIso1 < 0.35 && RelIso2 < 0.35 && Sip1 < 4.0 && Sip2 < 4.0 && pt1_corr > 25 && pt2_corr > 5 && abs(eta1) < 2.4 && abs(eta2) < 2.4 &&mass2mu_ewk2 < 96.0 && mass2mu_ewk2 > 86.0 && ((mu1_q_roc== 1 && phi1 > -1.57079632679&& phi1 < -0.785398163397) ||( mu2_q_roc == 1 && phi2 > -1.57079632679&& phi2 < -0.785398163397))
+unbinned fit
+[#1] INFO:Eval -- RooRealVar::setRange(mass2mu_ewk2) new range named 'refrange_fft_dcbxbw' created with bounds [86,96]
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_ewk2]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_ewk2)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x1131e690 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x11572130 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0 from preexisting content.
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (dcbxbw,bkg)
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (8.32704e+06) to force MIGRAD to back out of this region. Error log follows
+Parameter values: a1=0.000124562, a2=62.2151, fsig=0.908687, m=-0.520948, n1=57.1687, n2=69.9999, s=9.99643, tau=0.388613
+RooDoubleCB::dcb_fft[ x=mass2mu_ewk2_shifted_FFTBuffer2 xp=NULL mean=m width=s alpha1=a1 n1=n1 alpha2=a2 n2=n2 ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5695, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5685, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5675, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5665, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5655, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5645, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5635, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5625, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5615, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5605, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5595, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=-2.5585, xp=NULL, mean=m=-0.520948, width=s=9.99643, alpha1=a1=0.000124562, n1=n1=57.1687, alpha2=a2=62.2151, n2=n2=69.9999
+    ... (remaining 2038 messages suppressed)
+
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_ewk2]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_ewk2)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x116ad6e0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x117e8cf0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0 from preexisting content.
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (dcbxbw,bkg)
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_ewk2]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_ewk2)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x114fbde0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x1188fd30 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0 from preexisting content.

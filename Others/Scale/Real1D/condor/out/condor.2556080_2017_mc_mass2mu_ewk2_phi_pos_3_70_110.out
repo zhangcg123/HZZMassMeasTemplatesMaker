@@ -1,0 +1,39 @@
+Reading cached build data
+Done: ProjectRename
+/pool/condor/dir_5355/CMSSW_10_6_12 is the CMSSW I am using on the local worker node
+/pool/condor/dir_5355
+2017 mc mass2mu_ewk2 phi pos 3 70.0 110.0 unbinned
+mu1_hzzid && mu2_hzzid && (trigger24matching1 || trigger24matching2) && RelIso1 < 0.35 && RelIso2 < 0.35 && Sip1 < 4.0 && Sip2 < 4.0 && pt1_corr > 25 && pt2_corr > 5 && abs(eta1) < 2.4 && abs(eta2) < 2.4 &&mass2mu_ewk2 < 110.0 && mass2mu_ewk2 > 70.0 && ((mu1_q_roc== 1 && phi1 > -0.785398163397&& phi1 < 0.0) ||( mu2_q_roc == 1 && phi2 > -0.785398163397&& phi2 < 0.0))
+unbinned fit
+[#1] INFO:Eval -- RooRealVar::setRange(mass2mu_ewk2) new range named 'refrange_fft_dcbxbw' created with bounds [70,110]
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_ewk2]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_ewk2)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x1269bfe0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_ewk2]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_ewk2)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x125779b0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (5.39669e+06) to force MIGRAD to back out of this region. Error log follows
+Parameter values: a1=0.201743, a2=0.00250574, m=-4.96265, n1=18.8691, n2=69.9493, s=7.91643
+RooDoubleCB::dcb_fft[ x=mass2mu_ewk2_shifted_FFTBuffer2 xp=NULL mean=m width=s alpha1=a1 n1=n1 alpha2=a2 n2=n2 ]
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9525, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9535, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9545, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9555, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9565, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9575, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9585, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9595, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9605, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9615, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9625, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+     p.d.f value is Not-a-Number (-nan), forcing value to zero @ x=mass2mu_ewk2_shifted_FFTBuffer2=21.9635, xp=NULL, mean=m=-4.96265 +/- 0.0038609, width=s=7.91643 +/- 0.00767895, alpha1=a1=0.201743 +/- 0.0111334, n1=n1=18.8691 +/- 0.0139611, alpha2=a2=0.00250574 +/- 0.0435039, n2=n2=69.9493 +/- 0.662331
+    ... (remaining 2038 messages suppressed)
+
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_ewk2]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_ewk2)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x1362eb90 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x138fbac0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_ewk2] for nset (mass2mu_ewk2) with code 0 from preexisting content.

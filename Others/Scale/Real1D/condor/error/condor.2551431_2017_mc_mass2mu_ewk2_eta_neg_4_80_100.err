@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "readtree.py", line 109, in <module>
+    ReadTree(year, isdata, mass, k, charge, bin_, low,high, inputpath, binned)
+  File "readtree.py", line 57, in ReadTree
+    model.fitTo(dataset,ROOT.RooFit.PrintLevel(-1))
+TypeError: none of the 2 overloaded methods succeeded. Full details:
+  RooFitResult* RooAbsPdf::fitTo(RooAbsData& data, const RooCmdArg& arg1 = RooCmdArg::none(), const RooCmdArg& arg2 = RooCmdArg::none(), const RooCmdArg& arg3 = RooCmdArg::none(), const RooCmdArg& arg4 = RooCmdArg::none(), const RooCmdArg& arg5 = RooCmdArg::none(), const RooCmdArg& arg6 = RooCmdArg::none(), const RooCmdArg& arg7 = RooCmdArg::none(), const RooCmdArg& arg8 = RooCmdArg::none()) =>
+    std::bad_array_new_length (C++ exception of type bad_array_new_length)
+  RooFitResult* RooAbsPdf::fitTo(RooAbsData& data, const RooLinkedList& cmdList) =>
+    could not convert argument 2

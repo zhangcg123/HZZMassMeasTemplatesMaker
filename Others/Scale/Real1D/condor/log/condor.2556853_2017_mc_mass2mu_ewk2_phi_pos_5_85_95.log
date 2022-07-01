@@ -1,0 +1,39 @@
+000 (2556853.005.000) 07/28 08:32:19 Job submitted from host: <188.185.70.244:9618?addrs=188.185.70.244-9618+[2001-1458-d00-7--100-2ee]-9618&alias=bigbird10.cern.ch&noUDP&sock=schedd_2037_ca81>
+...
+040 (2556853.005.000) 07/28 08:38:50 Started transferring input files
+	Transferring to host: <128.142.161.94:9618?addrs=128.142.161.94-9618&alias=b7g03p9443.cern.ch&noUDP&sock=slot1_17_16577_befb_48849>
+...
+040 (2556853.005.000) 07/28 08:38:51 Finished transferring input files
+...
+001 (2556853.005.000) 07/28 08:38:51 Job executing on host: <128.142.161.94:9618?addrs=128.142.161.94-9618&alias=b7g03p9443.cern.ch&noUDP&sock=startd_3001_03ce>
+...
+006 (2556853.005.000) 07/28 08:39:00 Image size of job updated: 288720
+	164  -  MemoryUsage of job (MB)
+	167684  -  ResidentSetSize of job (KB)
+...
+006 (2556853.005.000) 07/28 08:44:01 Image size of job updated: 631396
+	205  -  MemoryUsage of job (MB)
+	209608  -  ResidentSetSize of job (KB)
+...
+006 (2556853.005.000) 07/28 09:03:55 Image size of job updated: 786696
+	205  -  MemoryUsage of job (MB)
+	209608  -  ResidentSetSize of job (KB)
+...
+040 (2556853.005.000) 07/28 09:03:55 Started transferring output files
+...
+040 (2556853.005.000) 07/28 09:03:55 Finished transferring output files
+...
+007 (2556853.005.000) 07/28 09:03:55 Shadow exception!
+	Error from slot1_17@b7g03p9443.cern.ch: STARTER at 128.142.161.94 failed to send file(s) to <188.185.70.244:9618>; SHADOW at 188.185.70.244 failed to write to file /eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/unbinned/2017_85_95/2017_mc_mass2mu_ewk2_phi_pos_5_85_95.png: (errno 2) No such file or directory
+	50554  -  Run Bytes Sent By Job
+	55262880  -  Run Bytes Received By Job
+...
+012 (2556853.005.000) 07/28 09:03:55 Job was held.
+	Error from slot1_17@b7g03p9443.cern.ch: STARTER at 128.142.161.94 failed to send file(s) to <188.185.70.244:9618>; SHADOW at 188.185.70.244 failed to write to file /eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/unbinned/2017_85_95/2017_mc_mass2mu_ewk2_phi_pos_5_85_95.png: (errno 2) No such file or directory
+	Code 12 Subcode 2
+...
+009 (2556853.005.000) 07/28 10:47:34 Job was aborted.
+	via condor_rm (by user chenguan)
+
+	Job terminated by itself at 2021-07-28T07:03:55Z (using method 0: OF_ITS_OWN_ACCORD).
+...

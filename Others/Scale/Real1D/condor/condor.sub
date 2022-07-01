@@ -1,0 +1,46 @@
+executable		= condor.sh 
+arguments		= $(year) $(isdata) $(mass) $(k) $(charge) $(Step) $(low) $(high) $(unbinned)
+output			= out/condor.$(ClusterId)_$(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).out 
+error			= error/condor.$(ClusterId)_$(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).err 
+log			= log/condor.$(ClusterId)_$(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).log 
+
+request_memory		= 7000M
++JobFlavour		= "workday"
+
+should_transfer_files   = YES
+WhenToTransferOutput	= ON_EXIT
+transfer_input_files    = readtree.py, /afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/CMSSW_10_6_12.tgz
+
+transfer_output_files	= $(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).png, $(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).json
+
+transfer_output_remaps	= "$(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).png=/eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/$(unbinned)/$(year)_$(low)_$(high)/$(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).png;$(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).json=/eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/$(unbinned)/$(year)_$(low)_$(high)/$(year)_$(isdata)_$(mass)_$(k)_$(charge)_$(Step)_$(low)_$(high).json"
+queue 8 year,isdata,mass,k,charge,low,high,unbinned from (	
+	#2017,mc,mass2mu_corr,phi,pos,70,110,unbinned
+	#2017,mc,mass2mu_corr,phi,neg,70,110,unbinned
+	#2017,mc,mass2mu_corr,eta,pos,70,110,unbinned
+	#2017,mc,mass2mu_corr,eta,neg,70,110,unbinned
+	#2017,data,mass2mu_corr,phi,pos,70,110,unbinned
+	#2017,data,mass2mu_corr,phi,neg,70,110,unbinned
+	#2017,data,mass2mu_corr,eta,pos,70,110,unbinned
+	#2017,data,mass2mu_corr,eta,neg,70,110,unbinned
+	2017,mc,mass2mu_ewk2,phi,pos,70,110,unbinned
+	2017,mc,mass2mu_ewk2,phi,neg,70,110,unbinned
+	2017,mc,mass2mu_ewk2,eta,pos,70,110,unbinned
+	2017,mc,mass2mu_ewk2,eta,neg,70,110,unbinned
+	#2017,data,mass2mu_ewk2,phi,pos,70,110,unbinned
+	#2017,data,mass2mu_ewk2,phi,neg,70,110,unbinned
+	#2017,data,mass2mu_ewk2,eta,pos,70,110,unbinned
+	#2017,data,mass2mu_ewk2,eta,neg,70,110,unbinned
+	#2017,mc,mass2mu_ewk_dt,phi,pos,70,110,unbinned
+	#2017,mc,mass2mu_ewk_dt,phi,neg,70,110,unbinned
+	#2017,mc,mass2mu_ewk_dt,eta,pos,70,110,unbinned
+	#2017,mc,mass2mu_ewk_dt,eta,neg,70,110,unbinned
+	#2017,mc,mass2mu_zpt_dt,phi,pos,70,110,unbinned
+	#2017,mc,mass2mu_zpt_dt,phi,neg,70,110,unbinned
+	#2017,mc,mass2mu_zpt_dt,eta,pos,70,110,unbinned
+	#2017,mc,mass2mu_zpt_dt,eta,neg,70,110,unbinned
+	#2017,mc,mass2mu_dm_dt,phi,pos,70,110,unbinned
+	#2017,mc,mass2mu_dm_dt,phi,neg,70,110,unbinned
+	#2017,mc,mass2mu_dm_dt,eta,pos,70,110,unbinned
+	#2017,mc,mass2mu_dm_dt,eta,neg,70,110,unbinned
+)

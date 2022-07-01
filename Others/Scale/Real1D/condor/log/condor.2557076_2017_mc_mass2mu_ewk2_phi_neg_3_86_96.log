@@ -1,0 +1,42 @@
+000 (2557076.011.000) 07/28 10:47:43 Job submitted from host: <188.185.70.244:9618?addrs=188.185.70.244-9618+[2001-1458-d00-7--100-2ee]-9618&alias=bigbird10.cern.ch&noUDP&sock=schedd_2037_ca81>
+...
+040 (2557076.011.000) 07/28 12:12:45 Started transferring input files
+	Transferring to host: <128.142.81.227:9618?addrs=128.142.81.227-9618+[2001-1458-301-f5--100-39a]-9618&alias=b7s13n1523.cern.ch&noUDP&sock=slot1_1_6214_1336_77288>
+...
+040 (2557076.011.000) 07/28 12:12:46 Finished transferring input files
+...
+001 (2557076.011.000) 07/28 12:12:46 Job executing on host: <128.142.81.227:9618?addrs=128.142.81.227-9618+[2001-1458-301-f5--100-39a]-9618&alias=b7s13n1523.cern.ch&noUDP&sock=startd_5048_162b>
+...
+006 (2557076.011.000) 07/28 12:12:55 Image size of job updated: 288720
+	28  -  MemoryUsage of job (MB)
+	28084  -  ResidentSetSize of job (KB)
+...
+006 (2557076.011.000) 07/28 12:17:56 Image size of job updated: 785904
+	266  -  MemoryUsage of job (MB)
+	272180  -  ResidentSetSize of job (KB)
+...
+006 (2557076.011.000) 07/28 12:32:18 Image size of job updated: 786504
+	266  -  MemoryUsage of job (MB)
+	272180  -  ResidentSetSize of job (KB)
+...
+040 (2557076.011.000) 07/28 12:32:18 Started transferring output files
+...
+040 (2557076.011.000) 07/28 12:32:19 Finished transferring output files
+...
+005 (2557076.011.000) 07/28 12:32:19 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:17:18, Sys 0 00:00:03  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:17:18, Sys 0 00:00:03  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	51928  -  Run Bytes Sent By Job
+	55262880  -  Run Bytes Received By Job
+	51928  -  Total Bytes Sent By Job
+	55262880  -  Total Bytes Received By Job
+	Partitionable Resources :     Usage  Request Allocated 
+	   Cpus                 :      1.00        5         5 
+	   Disk (KB)            : 182149       75000    290240 
+	   Memory (MB)          :    266       10000     10000 
+
+	Job terminated of its own accord at 2021-07-28T10:32:18Z.
+...

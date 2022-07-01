@@ -1,0 +1,39 @@
+000 (2556852.011.000) 07/28 08:31:43 Job submitted from host: <188.185.70.244:9618?addrs=188.185.70.244-9618+[2001-1458-d00-7--100-2ee]-9618&alias=bigbird10.cern.ch&noUDP&sock=schedd_2037_ca81>
+...
+040 (2556852.011.000) 07/28 08:38:41 Started transferring input files
+	Transferring to host: <128.142.65.228:9618?addrs=128.142.65.228-9618+[2001-1458-301-4c--100-99]-9618&alias=b7s09n2237.cern.ch&noUDP&sock=slot1_9_16870_30e7_61317>
+...
+040 (2556852.011.000) 07/28 08:38:42 Finished transferring input files
+...
+001 (2556852.011.000) 07/28 08:38:42 Job executing on host: <128.142.65.228:9618?addrs=128.142.65.228-9618+[2001-1458-301-4c--100-99]-9618&alias=b7s09n2237.cern.ch&noUDP&sock=startd_16727_e8c0>
+...
+006 (2556852.011.000) 07/28 08:38:51 Image size of job updated: 450180
+	66  -  MemoryUsage of job (MB)
+	67556  -  ResidentSetSize of job (KB)
+...
+006 (2556852.011.000) 07/28 08:43:52 Image size of job updated: 792332
+	272  -  MemoryUsage of job (MB)
+	278384  -  ResidentSetSize of job (KB)
+...
+006 (2556852.011.000) 07/28 08:48:06 Image size of job updated: 793164
+	272  -  MemoryUsage of job (MB)
+	278384  -  ResidentSetSize of job (KB)
+...
+040 (2556852.011.000) 07/28 08:48:06 Started transferring output files
+...
+040 (2556852.011.000) 07/28 08:48:06 Finished transferring output files
+...
+007 (2556852.011.000) 07/28 08:48:06 Shadow exception!
+	Error from slot1_9@b7s09n2237.cern.ch: STARTER at 128.142.65.228 failed to send file(s) to <188.185.70.244:9618>; SHADOW at 188.185.70.244 failed to write to file /eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/unbinned/2017_80_100/2017_mc_mass2mu_ewk2_phi_neg_3_80_100.png: (errno 2) No such file or directory
+	47672  -  Run Bytes Sent By Job
+	55262880  -  Run Bytes Received By Job
+...
+012 (2556852.011.000) 07/28 08:48:06 Job was held.
+	Error from slot1_9@b7s09n2237.cern.ch: STARTER at 128.142.65.228 failed to send file(s) to <188.185.70.244:9618>; SHADOW at 188.185.70.244 failed to write to file /eos/user/c/chenguan/www/vertex/ScaleUnc/Real1D/19UL/unbinned/2017_80_100/2017_mc_mass2mu_ewk2_phi_neg_3_80_100.png: (errno 2) No such file or directory
+	Code 12 Subcode 2
+...
+009 (2556852.011.000) 07/28 10:47:34 Job was aborted.
+	via condor_rm (by user chenguan)
+
+	Job terminated by itself at 2021-07-28T06:48:06Z (using method 0: OF_ITS_OWN_ACCORD).
+...

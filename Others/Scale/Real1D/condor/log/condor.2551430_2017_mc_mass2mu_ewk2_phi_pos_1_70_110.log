@@ -1,0 +1,39 @@
+000 (2551430.001.000) 07/26 16:07:36 Job submitted from host: <188.185.70.244:9618?addrs=188.185.70.244-9618+[2001-1458-d00-7--100-2ee]-9618&alias=bigbird10.cern.ch&noUDP&sock=schedd_2037_ca81>
+...
+040 (2551430.001.000) 07/26 16:45:00 Started transferring input files
+	Transferring to host: <188.184.132.210:9618?addrs=188.184.132.210-9618+[2001-1458-301-a0--100-bd]-9618&alias=b7g28n0133.cern.ch&noUDP&sock=slot1_2_3914_8458_68412>
+...
+040 (2551430.001.000) 07/26 16:45:04 Finished transferring input files
+...
+001 (2551430.001.000) 07/26 16:45:06 Job executing on host: <188.184.132.210:9618?addrs=188.184.132.210-9618+[2001-1458-301-a0--100-bd]-9618&alias=b7g28n0133.cern.ch&noUDP&sock=startd_3407_7f41>
+...
+006 (2551430.001.000) 07/26 16:45:15 Image size of job updated: 12296
+	4  -  MemoryUsage of job (MB)
+	3684  -  ResidentSetSize of job (KB)
+...
+006 (2551430.001.000) 07/26 16:50:16 Image size of job updated: 631916
+	205  -  MemoryUsage of job (MB)
+	209648  -  ResidentSetSize of job (KB)
+...
+006 (2551430.001.000) 07/26 16:50:54 Image size of job updated: 758328
+	205  -  MemoryUsage of job (MB)
+	209648  -  ResidentSetSize of job (KB)
+...
+040 (2551430.001.000) 07/26 16:50:59 Started transferring output files
+...
+040 (2551430.001.000) 07/26 16:50:59 Finished transferring output files
+...
+007 (2551430.001.000) 07/26 16:51:00 Shadow exception!
+	Error from slot1_2@b7g28n0133.cern.ch: STARTER at 188.184.132.210 failed to send file(s) to <188.185.70.244:9618>: error reading from /pool/condor/dir_23432/2017_mc_mass2mu_ewk2_phi_pos_1_70_110.json: (errno 2) No such file or directory; SHADOW failed to receive file(s) from <188.184.132.210:42055>
+	1520  -  Run Bytes Sent By Job
+	55262876  -  Run Bytes Received By Job
+...
+012 (2551430.001.000) 07/26 16:51:00 Job was held.
+	Error from slot1_2@b7g28n0133.cern.ch: STARTER at 188.184.132.210 failed to send file(s) to <188.185.70.244:9618>: error reading from /pool/condor/dir_23432/2017_mc_mass2mu_ewk2_phi_pos_1_70_110.json: (errno 2) No such file or directory; SHADOW failed to receive file(s) from <188.184.132.210:42055>
+	Code 13 Subcode 2
+...
+009 (2551430.001.000) 07/26 17:21:53 Job was aborted.
+	via condor_rm (by user chenguan)
+
+	Job terminated by itself at 2021-07-26T14:50:54Z (using method 0: OF_ITS_OWN_ACCORD).
+...

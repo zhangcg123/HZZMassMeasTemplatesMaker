@@ -1,0 +1,57 @@
+#include "include/Set4LSlimmedTree.h"
+#include "include/Read4LSlimmedTree.h"
+#include "include/do4LFit.h"
+#include "include/MakePlot.h"
+
+void BKGEventYield_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, TString process);
+
+int main(int argc, char *argv[]){
+        TString year  = argv[1];
+        TString type = argv[2];
+        TString tag = argv[3];
+        int fs = atoi(argv[4]);
+        int cates = atoi(argv[5]);
+        TString plotpath = argv[6];
+        TString steponedir = argv[7];
+	TString process = argv[8];
+
+	BKGEventYield_(plotpath, fs, type, tag, year, cates, steponedir, process);
+}
+
+void BKGEventYield_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, TString process){
+	
+	TString fs_name;
+	if(fs==1)fs_name = "4mu";
+	if(fs==2)fs_name = "4e";
+	if(fs==3)fs_name = "2e2mu";
+	if(fs==4)fs_name = "2mu2e";
+	TFile* f = new TFile(steponedir + "/_"+fs_name+"_bounds.root");
+	TH1F* h_std = (TH1F*)f->Get("bounds");
+	
+	//retrieve name
+	TString process_;
+	if(process=="qqzz"&&BASE=="20UL")process_ = "ZZTo4L_M125_"+year+"_skimmed";
+	if(process=="qqzz"&&BASE=="ReReco")process_ = "slimmed_"+year+"qqZZ";
+	if(fs_name=="4mu"&&process=="ggzz"&&BASE=="20UL")process_ = "GluGluToContinToZZTo4mu_M125_"+year+"_skimmed";
+	if(fs_name=="4mu"&&process=="ggzz"&&BASE=="ReReco")process_ = year+"ggZZ_4mu";
+	if(fs_name=="4e"&&process=="ggzz"&&BASE=="20UL")process_ = "GluGluToContinToZZTo4e_M125_"+year+"_skimmed";
+	if(fs_name=="4e"&&process=="ggzz"&&BASE=="ReReco")process_ = year+"ggZZ_4e";
+	if((fs_name=="2mu2e"||fs_name=="2e2mu")&&process=="ggzz"&&BASE=="20UL")process_ = "GluGluToContinToZZTo2e2mu_M125_"+year+"_skimmed";
+	if((fs_name=="2mu2e"||fs_name=="2e2mu")&&process=="ggzz"&&BASE=="ReReco")process_ = year+"ggZZ_2e2mu";
+	
+	TFile* f_ = new TFile();
+	if(BASE=="ReReco")f_ = new TFile("/afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/liteUFHZZ4LAnalyzer/Ntuples/ReReco/"+process_+".root");
+	if(BASE=="20UL")f_ = new TFile("/afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/HZZMassMeasTemplatesMaker/Others/Slimmer/OutPutTrees/"+year+"/"+process_+".root");
+	TTree* t = (TTree*)f_->Get("passedEvents");
+
+	double yields_bkg[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+	double yielderr[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+	if(process=="qqzz")ReadTreeForQQZZEventYield(yields_bkg, h_std, t, fs, year, process, type, tag);
+	if(process=="ggzz")ReadTreeForEventYield(yields_bkg, yielderr, h_std, t, fs, year, process, 0, type, tag);
+
+	for(int i=0; i<cates; i++){
+		TString i_s = to_string(i);
+		MakeBKGEventYieldPlot(yields_bkg[i], plotpath, i_s, fs_name, type, process, tag, year);
+	}
+}

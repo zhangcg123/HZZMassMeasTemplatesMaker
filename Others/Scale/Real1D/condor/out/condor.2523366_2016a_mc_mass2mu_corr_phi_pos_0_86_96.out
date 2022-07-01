@@ -1,0 +1,25 @@
+Reading cached build data
+Done: ProjectRename
+/pool/condor/dir_42671/CMSSW_10_6_12 is the CMSSW I am using on the local worker node
+/pool/condor/dir_42671
+2016a mc mass2mu_corr phi pos 0 86.0 96.0 unbinned
+mu1_hzzid && mu2_hzzid && (trigger24matching1 || trigger24matching2) && RelIso1 < 0.35 && RelIso2 < 0.35 && Sip1 < 4.0 && Sip2 < 4.0 && pt1_corr > 25 && pt2_corr > 5 && abs(eta1) < 2.4 && abs(eta2) < 2.4 &&mass2mu_corr < 96.0 && mass2mu_corr > 86.0 && ((mu1_q_roc== 1 && phi1 > -3.14159265359&& phi1 < -2.35619449019) ||( mu2_q_roc == 1 && phi2 > -3.14159265359&& phi2 < -2.35619449019))
+unbinned fit
+[#1] INFO:Eval -- RooRealVar::setRange(mass2mu_corr) new range named 'refrange_fft_dcbxbw' created with bounds [86,96]
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_corr]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_corr)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x129600a0 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x1363d720 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0 from preexisting content.
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (dcbxbw,bkg)
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_corr]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_corr)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13515e50 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13775540 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0 from preexisting content.
+[#1] INFO:Minization --  The following expressions have been identified as constant and will be precalculated and cached: (bw)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (dcbxbw,bkg)
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(dcb_fft_Int[mass2mu_corr]) using numeric integrator RooIntegrator1D to calculate Int(mass2mu_corr)
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13447210 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0
+[#1] INFO:Caching -- RooAbsCachedPdf::getCache(dcbxbw) creating new cache 0x13681e90 with pdf bw_CONV_dcb_CACHE_Obs[mass2mu_corr] for nset (mass2mu_corr) with code 0 from preexisting content.
