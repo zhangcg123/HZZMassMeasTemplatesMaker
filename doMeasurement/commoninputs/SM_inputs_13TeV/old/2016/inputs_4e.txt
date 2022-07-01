@@ -1,0 +1,28 @@
+############## Inputs for 4e for 13 TeV  ##############
+## SM ##
+model SM
+
+## decay chan ##
+decay 4e
+
+## lumi ##
+lumi 35.8671
+systematic lumiUnc 1.01
+systematic lumiUncorrelated_16_17_18 1.006
+
+## sqrtS ##
+sqrts 13
+
+## Channels to include in cards ##
+channels ggH qqH WH ZH ttH bbH qqZZ ggZZ zjets
+
+### channel dependent systematics ###
+systematic zjetKappaLow   1.33
+systematic zjetKappaHigh   1.33
+systematic param CMS_zz4l_mean_e_sig   0.0015
+systematic param CMS_zz4l_sigma_e_sig  0.1
+
+## 4e systematics ##
+systematic ele_signal 0.9133 1.09173
+systematic ele_ggzz 0.904993 1.10116
+systematic ele_qqzz 0.89822 1.10871

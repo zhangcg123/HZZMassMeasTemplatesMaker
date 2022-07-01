@@ -1,27 +1,25 @@
 *.exe
 *.pyc
+*.swp
+*.__*
 nohup.out
 
-doMeasurement/
-!doMeasurement/CARDS_for_WIDTH/
-!doMeasurement/datacardsInputs_*/
-!doMeasurement/datacardsOutputs_KDFalse_*/
-!doMeasurement/datacardsOutputs_KDTrue_*/
-!doMeasurement/dummy*
-!doMeasurement/dummy*/
-!doMeasurement/hllhc3kfb14tevprojection/
-!doMeasurement/pre-ultralegacy/
-!doMeasurement/rerecobackup/
-!doMeasurement/vbftagtest/
-!doMeasurement/commoninputs/oldhig16041/
-!doMeasurement/SM_inputs_13TeV/inputs_withZX_UpdatedLumi_tHq/
-!doMeasurement/SM_inputs_13TeV/old/
+doMeasurement/CARDS_for_WIDTH/
+doMeasurement/datacardsInputs_*/
+doMeasurement/datacardsOutputs_KDFalse_*/
+doMeasurement/datacardsOutputs_KDTrue_*/
+doMeasurement/dummy*
+doMeasurement/hllhc3kfb14tevprojection/
+doMeasurement/pre-ultralegacy/
+doMeasurement/rerecobackup/
+doMeasurement/vbftagtest/
+doMeasurement/commoninputs/oldhig16041/
+doMeasurement/SM_inputs_13TeV/inputs_withZX_UpdatedLumi_tHq/
+doMeasurement/SM_inputs_13TeV/old/
 
-Others/Slimmer/
-!Others/Slimmer/Dump
-!Others/Slimmer/OutPutTrees
+Others/Slimmer/Dump
+Others/Slimmer/OutPutTrees
 
-Others/ToyStudy/
-!Others/ToyStudy/toyCode
-!Other/ToyStudy/SlimForToyStudy/Dump
-!Other/ToyStudy/SlimForToyStudy/OutPutTrees
+Others/ToyStudy/toyCode
+Other/ToyStudy/SlimForToyStudy/Dump
+Other/ToyStudy/SlimForToyStudy/OutPutTrees

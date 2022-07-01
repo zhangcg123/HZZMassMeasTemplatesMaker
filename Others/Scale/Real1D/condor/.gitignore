@@ -1,6 +1,6 @@
-!log/
-!error/
-!out/
-!*png
-!*json
-!*root
+log/
+error/
+out/
+*png
+*json
+*root
