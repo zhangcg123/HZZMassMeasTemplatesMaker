@@ -4,6 +4,8 @@
 *.__*
 nohup.out
 
+doMeasurement/CMSdata/
+doMeasurement/CMSdata_REFIT/
 doMeasurement/CARDS_for_WIDTH/
 doMeasurement/datacardsInputs_*/
 doMeasurement/datacardsOutputs_KDFalse_*/
