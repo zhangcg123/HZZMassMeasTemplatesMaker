@@ -1,4 +1,5 @@
 *.exe
+*.pyc
 nohup.out
 
 doMeasurement/
@@ -17,10 +18,10 @@ doMeasurement/
 !doMeasurement/SM_inputs_13TeV/old/
 
 Others/Slimmer/
-!Others/Slimmer/Dump/
-!Others/Slimmer/OutPutTrees/
+!Others/Slimmer/Dump
+!Others/Slimmer/OutPutTrees
 
 Others/ToyStudy/
-!Others/ToyStudy/toyCode/
-!Other/ToyStudy/SlimForToyStudy/Dump/
-!Other/ToyStudy/SlimForToyStudy/OutPutTrees/
+!Others/ToyStudy/toyCode
+!Other/ToyStudy/SlimForToyStudy/Dump
+!Other/ToyStudy/SlimForToyStudy/OutPutTrees

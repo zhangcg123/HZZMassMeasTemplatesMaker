@@ -1,0 +1,6 @@
+!log/
+!error/
+!out/
+!*png
+!*json
+!*root
