@@ -61,7 +61,7 @@ def stepbystep(year, fs, fs_name, tag, type_, cat, dic):
 		collectinfo(stepsix_plotpath)
 
 	#########step VII############sig event yields
-	siglist = ['ggh', 'vbf', 'wph', 'wmh', 'zh', 'tth','bbh']
+	siglist = ['ggh', 'vbf', 'wph', 'wmh', 'zh', 'tth','bbh','thq']
 	for proc in siglist:
 		stepseven_plotpath = baseplotpath + 'SIGNorm/' + type_ + '/' + year + '/Categ_' + fs_name + '_' + str(cat) + '_' + tag +'/' + proc
 		pathlist[proc + '_signorm_' + year + '_' + fs_name + '_' + type_ + '_' + tag + '_' + cat] = stepseven_plotpath + '/'
@@ -131,21 +131,21 @@ cat = sys.argv[2]
 type_ = sys.argv[3]
 dirsuffix = sys.argv[4]
 tag_ = 'notag'
-
 assert year in ['20160','20165','2017','2018'] and type_ in ['reco','refit','bs','bsrefit'] and int(cat) in [1,2,3,4,5,6,7,8,9,10,11,12,13], 'ERRORRRRRRRRRRRRRRRRRR'
-baseplotpath = baseplotpath + dirsuffix+'/'
 
+baseplotpath = baseplotpath + dirsuffix+'/'
 if not os.path.exists(baseplotpath):
 	#mk
 	os.system('mkdir '+baseplotpath)
 
-p=Pool(4)
+
+p=Pool(4)	#four final states parallel
 for i in finalstates:
 	p.apply_async(func=stepbystep,args=(year,i,finalstates[i],tag_,type_,str(cat),dic))
 p.close()
 p.join()
 
-#######step XIII############json file for summary
+#######step XIII############Summary in json for data cards mechinery, and in html for you.
 if dic['step13']:
 	
 	stepthirteen_plotpath = baseplotpath + '/JSON/' + year + '_' + str(cat) + 'categs_'+type_+'_'+tag_

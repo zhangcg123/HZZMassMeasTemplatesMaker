@@ -56,7 +56,7 @@ class systematicsClass:
 
     def Write_Systematics_Line(self,systLine,theFile,theInputs):
         print "~~~~~~~~~~~~~~~~~"
-        channelList=['ggH','qqH','WH','ZH','ttH','bbH','qqZZ','ggZZ','zjets','ttbar','zbb']
+        channelList=['ggH','qqH','WH','ZH','ttH','bbH','tHq','qqZZ','ggZZ','zjets','ttbar','zbb']
         if theInputs["all"]:
             channelList=['ggH','qqZZ','ggZZ','zjets','ttbar','zbb']
         
@@ -82,6 +82,7 @@ class systematicsClass:
         systLine['ZH']   = "{0} ".format(self.lumiUncertainty)
         systLine['ttH']  = "{0} ".format(self.lumiUncertainty)
         systLine['bbH'] = "{0} ".format(self.lumiUncertainty)
+	systLine['tHq'] = "{0} ".format(self.lumiUncertainty)
 	systLine['qqZZ'] = "{0} ".format(self.lumiUncertainty)
         systLine['ggZZ'] = "{0} ".format(self.lumiUncertainty)
         systLine['zjets']= "- "
@@ -96,6 +97,7 @@ class systematicsClass:
         systLine['ZH']   = "{0} ".format(self.lumiUncertainty_correlated)
         systLine['ttH']  = "{0} ".format(self.lumiUncertainty_correlated)
         systLine['bbH'] = "{0} ".format(self.lumiUncertainty_correlated)
+	systLine['tHq'] = "{0} ".format(self.lumiUncertainty_correlated)
 	systLine['qqZZ'] = "{0} ".format(self.lumiUncertainty_correlated)
         systLine['ggZZ'] = "{0} ".format(self.lumiUncertainty_correlated)
         systLine['zjets']= "- "
@@ -111,6 +113,7 @@ class systematicsClass:
 		systLine['ZH']   = "{0} ".format(self.lumiUncertainty_correlated1718)
 		systLine['ttH']  = "{0} ".format(self.lumiUncertainty_correlated1718)
 		systLine['bbH'] = "{0} ".format(self.lumiUncertainty_correlated1718)
+		systLine['tHq'] = "{0} ".format(self.lumiUncertainty_correlated1718)
 		systLine['qqZZ'] = "{0} ".format(self.lumiUncertainty_correlated1718)
 		systLine['ggZZ'] = "{0} ".format(self.lumiUncertainty_correlated1718)
 		systLine['zjets']= "- "
@@ -129,6 +132,7 @@ class systematicsClass:
             systLine['ZH']   = "1.021/0.979 "#"{0:.4f} ".format(1. + (self.CSpdfErrPlus_zh-self.CSpdfErrMinus_zh)/2.)
             systLine['ttH']  = "- "
 	    systLine['bbH'] = "- "
+	    systLine['tHq'] = "- "
             systLine['qqZZ'] = "1.031/0.996 "#"{0:.4f} ".format(self.qqVV_pdfSys)
             systLine['ggZZ'] = "- "
             systLine['zjets']= "- "
@@ -147,6 +151,7 @@ class systematicsClass:
         systLine['ZH']   = "1.021/0.979 "#"{0:.4f} ".format(1. + (self.CSpdfErrPlus_zh-self.CSpdfErrMinus_zh)/2.)
         systLine['ttH']  = "- "
 	systLine['bbH']  = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- "#"{0:.4f} ".format(self.qqVV_pdfSys)
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- "
@@ -165,6 +170,7 @@ class systematicsClass:
         systLine['ZH']   = "- "#"{0:.4f} ".format(1. + (self.CSpdfErrPlus_zh-self.CSpdfErrMinus_zh)/2.)
         systLine['ttH']  = "- "
 	systLine['bbH']  = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "1.021/0.979 "#"{0:.4f} ".format(self.qqVV_pdfSys)
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- "
@@ -190,6 +196,7 @@ class systematicsClass:
             systLine['ZH']   = "- "
             systLine['ttH']  = "0.9220 "#.format(ttHSyst)
             systLine['bbH'] = "-"
+	    systLine['tHq'] = "- "
 	    systLine['qqZZ'] = "- " 
             systLine['ggZZ'] = "1.031 "#"{0:.4f} ".format(self.ggVV_pdfSys)
             systLine['zjets']= "- " 
@@ -204,7 +211,8 @@ class systematicsClass:
             systLine['WH']   = "- " 
             systLine['ZH']   = "- "
             systLine['ttH']  = "- " 
-	    systLine['bbH'] = "-"
+	    systLine['bbH'] = "- "
+	    systLine['tHq'] = "- "
             systLine['qqZZ'] = "- " 
             systLine['ggZZ'] = "{0:.4f} ".format(self.ggVV_pdfSys)
             systLine['zjets']= "- " 
@@ -224,6 +232,7 @@ class systematicsClass:
         systLine['ZH']   = "- "
         systLine['ttH']  = "- "
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- "
         systLine['ggZZ'] = "1.032/0.968 "#"{0:.4f} ".format(self.ggVV_pdfSys)
         systLine['zjets']= "- "
@@ -243,6 +252,7 @@ class systematicsClass:
         systLine['ZH']   = "- "
         systLine['ttH']  = "1.036/0.964 "
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- "
         systLine['ggZZ'] = "- "#"{0:.4f} ".format(self.ggVV_pdfSys)
         systLine['zjets']= "- "
@@ -259,7 +269,8 @@ class systematicsClass:
         systLine['WH']   = "- " 
         systLine['ZH']   = "- "
         systLine['ttH']  = "- "
-	systLine['bbH'] = "- " 
+	systLine['bbH'] = "- "
+	systLine['tHq'] = "- " 
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- " 
@@ -278,6 +289,7 @@ class systematicsClass:
         systLine['ZH']   = "- "
         systLine['ttH']  = "- " 
 	systLine['bbH'] = "- "
+	systLine["tHq"] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- " 
@@ -295,6 +307,7 @@ class systematicsClass:
         systLine['ZH']   = "1.038/0.969 "#.format(1. + (self.CSscaleErrPlus_zh-self.CSscaleErrMinus_zh)/2.)
         systLine['ttH']  = "- "
 	systLine['bbH'] = "- " 
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- " 
@@ -313,6 +326,7 @@ class systematicsClass:
         systLine['ZH']   = "- "
         systLine['ttH']  = "1.058/0.908 "#.format(1. + (self.CSscaleErrPlus_tth-self.CSscaleErrMinus_tth)/2.)
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- " 
@@ -331,6 +345,7 @@ class systematicsClass:
         systLine['ZH']   = "- "
         systLine['ttH']  = "- "
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "1.039/0.961 "#"{0:.4f} ".format(self.ggVV_scaleSys)
         systLine['zjets']= "- " 
@@ -349,6 +364,7 @@ class systematicsClass:
         systLine['ZH']   = "- "
         systLine['ttH']  = "- "
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "1.032/0.958 "#"{0:.4f} ".format(self.qqVV_scaleSys) 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- " 
@@ -359,7 +375,7 @@ class systematicsClass:
     
     def Write_BRhiggs_hzz4l(self,theFile,theInputs):
 
-        theFile.write("BRhiggs_hzz4l lnN ")
+        theFile.write("hzz_br lnN ")
 
         systLine={'ggH':"1.02 "}
         systLine['qqH']  = "1.02 " 
@@ -367,6 +383,7 @@ class systematicsClass:
         systLine['ZH']   = "1.02 " 
         systLine['ttH']  = "1.02 " 
 	systLine['bbH'] = "1.02 "
+	systLine['tHq'] = "1.02 "
         systLine['qqZZ'] = "- "
         systLine['ggZZ'] = "- "
         systLine['zjets']= "- "
@@ -378,7 +395,7 @@ class systematicsClass:
     def Write_eff_e(self,theFile,theInputs):
     
         if self.channel == self.ID_4e or self.channel == self.ID_2e2mu or self.channel == self.ID_2mu2e:
-            theFile.write("CMS_eff_e lnN ")
+            theFile.write("CMS_eff_e_"+self.year+" lnN ")
 
 	    sig4edn = self.ele_signal_low
 	    sig4eup = self.ele_signal_high
@@ -393,6 +410,7 @@ class systematicsClass:
             systLine['ZH']   = "{0:.3f}/{1:.3f} ".format(sig4edn,sig4eup)
             systLine['ttH']  = "{0:.3f}/{1:.3f} ".format(sig4edn,sig4eup)
 	    systLine['bbH']  = "{0:.3f}/{1:.3f} ".format(sig4edn,sig4eup)
+	    systLine['tHq'] = "{0:.3f}/{1:.3f} ".format(sig4edn,sig4eup)
             systLine['qqZZ'] = "{0:.3f}/{1:.3f} ".format(qqzz4edn,qqzz4eup)
             systLine['ggZZ'] = "{0:.3f}/{1:.3f} ".format(ggzz4edn,ggzz4eup)
             systLine['zjets']= "- "
@@ -403,7 +421,7 @@ class systematicsClass:
     
     def Write_eff_m(self,theFile,theInputs):
         if self.channel == self.ID_4mu or self.channel == self.ID_2e2mu or self.channel == self.ID_2mu2e:
-            theFile.write("CMS_eff_m lnN ")
+            theFile.write("CMS_eff_m_"+self.year+" lnN ")
 
             sig4mudn = self.mu_signal_low
 	    sig4muup = self.mu_signal_high
@@ -418,6 +436,7 @@ class systematicsClass:
             systLine['ZH']   = "{0:.3f}/{1:.3f} ".format(sig4mudn,sig4muup)
             systLine['ttH']  = "{0:.3f}/{1:.3f} ".format(sig4mudn,sig4muup)
 	    systLine['bbH']  = "{0:.3f}/{1:.3f} ".format(sig4mudn,sig4muup)
+	    systLine['tHq'] = "{0:.3f}/{1:.3f} ".format(sig4mudn,sig4muup)
             systLine['qqZZ'] = "{0:.3f}/{1:.3f} ".format(qqzz4mudn,qqzz4muup)
             systLine['ggZZ'] = "{0:.3f}/{1:.3f} ".format(ggzz4mudn,ggzz4muup)
             systLine['zjets']= "- "
@@ -428,7 +447,7 @@ class systematicsClass:
     
     def Write_CMS_hzz2mu2e_Zjets(self,theFile,theInputs):
 
-        theFile.write("CMS_hzz2mu2e_Zjets lnN ")
+        theFile.write("CMS_hzz2mu2e_FakeRate_"+self.year+" lnN ")
 
         systLine={'ggH':"- "}
         systLine['qqH']  = "- " 
@@ -436,6 +455,7 @@ class systematicsClass:
         systLine['ZH']   = "- " 
         systLine['ttH']  = "- " 
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "{0:.3f}/{1:.3f} ".format(self.zjetKappaLow,self.zjetKappaHigh)
@@ -447,13 +467,14 @@ class systematicsClass:
     
     def Write_CMS_hzz2e2mu_Zjets(self,theFile,theInputs):
 
-        theFile.write("CMS_hzz2e2mu_Zjets lnN ")
+        theFile.write("CMS_hzz2e2mu_FakeRate_"+self.year+" lnN ")
 
         systLine={'ggH':"- "}
         systLine['qqH']  = "- " 
         systLine['WH']   = "- " 
         systLine['ZH']   = "- " 
         systLine['ttH']  = "- " 
+	systLine['tHq'] = "- "
 	systLine['bbH'] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
@@ -465,7 +486,7 @@ class systematicsClass:
 
     def Write_CMS_hzz4mu_Zjets(self,theFile,theInputs):
 
-        theFile.write("CMS_hzz4mu_Zjets lnN ")
+        theFile.write("CMS_hzz4mu_FakeRate_"+self.year+" lnN ")
 
         systLine={'ggH':"- "}
         systLine['qqH']  = "- " 
@@ -473,6 +494,7 @@ class systematicsClass:
         systLine['ZH']   = "- " 
         systLine['ttH']  = "- " 
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "{0:.3f}/{1:.3f} ".format(self.zjetKappaLow,self.zjetKappaHigh)
@@ -483,7 +505,7 @@ class systematicsClass:
 
     def Write_CMS_hzz4e_Zjets(self,theFile,theInputs):
         
-        theFile.write("CMS_hzz4e_Zjets lnN ")
+        theFile.write("CMS_hzz4e_FakeRate_"+self.year+" lnN ")
 
         systLine={'ggH':"- "}
         systLine['qqH']  = "- " 
@@ -491,6 +513,7 @@ class systematicsClass:
         systLine['ZH']   = "- " 
         systLine['ttH']  = "- "
 	systLine['bbH'] = "- " 
+	systLine['tHq'] = "- "
         systLine['qqZZ'] = "- " 
         systLine['ggZZ'] = "- "
         systLine['zjets']= "{0:.3f}/{1:.3f} ".format(self.zjetKappaLow,self.zjetKappaHigh)
@@ -500,13 +523,14 @@ class systematicsClass:
         self.Write_Systematics_Line(systLine,theFile,theInputs)
 
     def Write_CMS_kfactor_ggzz(self,theFile,theInputs):
-    	theFile.write("CMS_kfactor_ggzz lnN ")
+    	theFile.write("kfactor_ggzz lnN ")
 	systLine={'ggH':"- "}
 	systLine['qqH'] = "- "
 	systLine['WH'] = "- "
 	systLine['ZH'] = "- "
 	systLine['ttH'] = "- "
 	systLine['bbH'] = "- "
+	systLine['tHq'] = "- "
 	systLine['qqZZ'] = "- "
 	systLine['ggZZ'] = "1.1 "
 	systLine['zjets'] = "- "
@@ -579,18 +603,18 @@ class systematicsClass:
 
         if( self.channel == self.ID_4mu):
 
-                theFile.write("CMS_zz4l_mean_m_sig param 0.0 1.0 \n")
-                theFile.write("CMS_zz4l_sigma_m_sig param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
+                theFile.write("CMS_zz4l_mean_m_sig_"+self.year+" param 0.0 1.0 \n")
+                theFile.write("CMS_zz4l_sigma_m_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
             
         if( self.channel == self.ID_4e):
 
-                theFile.write("CMS_zz4l_mean_e_sig param 0.0 1.0 \n")
-                theFile.write("CMS_zz4l_sigma_e_sig param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
+                theFile.write("CMS_zz4l_mean_e_sig_"+self.year+" param 0.0 1.0 \n")
+                theFile.write("CMS_zz4l_sigma_e_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
             
         if( self.channel == self.ID_2e2mu or self.channel == self.ID_2mu2e ):
 
-                theFile.write("CMS_zz4l_mean_m_sig param 0.0 1.0 \n")
-                theFile.write("CMS_zz4l_mean_e_sig param 0.0 1.0 \n".format(meanCB_e_errPerCent))
-                theFile.write("CMS_zz4l_sigma_m_sig param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
-                theFile.write("CMS_zz4l_sigma_e_sig param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
+                theFile.write("CMS_zz4l_mean_m_sig_"+self.year+" param 0.0 1.0 \n")
+                theFile.write("CMS_zz4l_mean_e_sig_"+self.year+" param 0.0 1.0 \n".format(meanCB_e_errPerCent))
+                theFile.write("CMS_zz4l_sigma_m_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
+                theFile.write("CMS_zz4l_sigma_e_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
 

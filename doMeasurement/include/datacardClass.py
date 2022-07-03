@@ -118,6 +118,8 @@ class datacardClass:
         self.WH_chan = theInputs['WH']
         self.ZH_chan = theInputs['ZH']
         self.ttH_chan = theInputs['ttH']
+	self.bbH_chan = theInputs['bbH']
+	self.tHq_chan = theInputs['tHq']
         self.qqZZ_chan = theInputs['qqZZ']
         self.ggZZ_chan = theInputs['ggZZ']
         self.zjets_chan = theInputs['zjets']
@@ -514,6 +516,16 @@ class datacardClass:
 		signalCB_bbH = ROOT.RooFFTConvPdf(name,name,CMS_zz4l_mass,HiggsBreitWigner,DetectorReso_bbH,2)
 	if (not self.MassOnly and not self.FFT) :
 		signalCB_bbH = ROOT.RooaDoubleCBxBW(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_Approx, self.getVariable(rfv_MassErr,rfv_sigma_approx, self.bIncludingError), alpha_approx, alpha2_approx, self.MH, self.HiggsDecayWidth, n1_, n2_, theta1, theta2, False)
+	##---------------------------------------------------------------tHq
+	name = "signalCB_tHq_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+	if (self.MassOnly) : signalCN_bbH = ROOT.RooDoubleCB(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_NoConv, self.getVariable(rfv_MassErr,rfv_sigma_CB, self.bIncludingError),rfv_alpha_CB,rfv_n_CB, rfv_alpha2_CB, rfv_n2_CB)
+	if (not self.MassOnly and self.FFT) :
+		DetectorReso_tHq = ROOT.RooDoubleCB(name+'_reco',name,CMS_zz4l_mass, CMS_zz4l_mean_sig_Conv, self.getVariable(rfv_MassErr,rfv_sigma_CB, self.bIncludingError), rfv_alpha_CB,rfv_n_CB, rfv_alpha2_CB, rfv_n2_CB)
+		signalCB_tHq = ROOT.RooFFTConvPdf(name,name,CMS_zz4l_mass,HiggsBreitWigner,DetectorReso_tHq,2)
+	if (not self.MassOnly and not self.FFT) :
+		signalCB_bbH = ROOT.RooaDoubleCBxBW(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_Approx, self.getVariable(rfv_MassErr,rfv_sigma_approx, self.bIncludingError), alpha_approx, alpha2_approx, self.MH, self.HiggsDecayWidth, n1_, n2_, theta2, theta2, False)
+
+
 
 	if (self.FFT and not self.MassOnly):
 		signalCB_ggH.setBufferFraction(0.2)
@@ -522,6 +534,7 @@ class datacardClass:
 		resZH.setBufferFraction(0.2)
 		signalCB_ttH.setBufferFraction(0.2)
 		signalCB_bbH.setBufferFraction(0.2)
+		signalCB_tHq.setBufferFraction(0.2)
 
 	##---------------------------------------------------------------------------bkgs
         ## qqZZ contribution
@@ -569,6 +582,8 @@ class datacardClass:
         sig_ttHErr = ROOT.RooProdPdf(name,name, ROOT.RooArgSet(pdfErrS), ROOT.RooFit.Conditional(ROOT.RooArgSet(signalCB_ttH), ROOT.RooArgSet(CMS_zz4l_mass)))
         name = "sig_bbHErr_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
 	sig_bbHErr = ROOT.RooProdPdf(name,name, ROOT.RooArgSet(pdfErrS), ROOT.RooFit.Conditional(ROOT.RooArgSet(signalCB_bbH), ROOT.RooArgSet(CMS_zz4l_mass)))
+	name = "sig_tHqErr_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+	sig_tHqErr = ROOT.RooProdPdf(name,name, ROOT.RooArgSet(pdfErrS), ROOT.RooFit.Conditional(ROOT.RooArgSet(signalCB_tHq), ROOT.RooArgSet(CMS_zz4l_mass)))
 	 
 	##### bkg EBE model
         name = "bkg_qqzzErr_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
@@ -632,6 +647,14 @@ class datacardClass:
         TemplateName = "sigTemplatePdf_bbH_Down_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         sigTemplatePdf_bbH_Down = ROOT.RooHistPdf(TemplateName,TemplateName,ROOT.RooArgSet(CMS_zz4l_mass,D),sigTempDataHist_Down)
 
+        TemplateName = "sigTemplatePdf_tHq_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+        sigTemplatePdf_tHq = ROOT.RooHistPdf(TemplateName,TemplateName,ROOT.RooArgSet(CMS_zz4l_mass,D),sigTempDataHist)
+        TemplateName = "sigTemplatePdf_tHq_Up_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+        sigTemplatePdf_tHq_Up = ROOT.RooHistPdf(TemplateName,TemplateName,ROOT.RooArgSet(CMS_zz4l_mass,D),sigTempDataHist_Up)
+        TemplateName = "sigTemplatePdf_tHq_Down_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+        sigTemplatePdf_tHq_Down = ROOT.RooHistPdf(TemplateName,TemplateName,ROOT.RooArgSet(CMS_zz4l_mass,D),sigTempDataHist_Down)
+
+
 	
 	funcList_ggH = ROOT.RooArgList()  
         funcList_VBF = ROOT.RooArgList()
@@ -639,6 +662,7 @@ class datacardClass:
         funcList_ZH  = ROOT.RooArgList()
         funcList_ttH = ROOT.RooArgList()
 	funcList_bbH = ROOT.RooArgList()
+	funcList_tHq = ROOT.RooArgList()
 
         funcList_ggH.add(sigTemplatePdf_ggH)
         funcList_VBF.add(sigTemplatePdf_VBF)
@@ -646,6 +670,7 @@ class datacardClass:
         funcList_ZH.add(sigTemplatePdf_ZH)
         funcList_ttH.add(sigTemplatePdf_ttH)
 	funcList_bbH.add(sigTemplatePdf_bbH)
+	funcList_tHq.add(sigTemplatePdf_tHq)
 
         if(self.sigMorph): 
            funcList_ggH.add(sigTemplatePdf_ggH_Up)
@@ -660,6 +685,8 @@ class datacardClass:
            funcList_ttH.add(sigTemplatePdf_ttH_Down)  
 	   funcList_bbH.add(sigTemplatePdf_bbH_Up)
 	   funcList_bbH.add(sigTemplatePdf_bbH_Down)
+	   funcList_tHq.add(sigTemplatePdf_tHq_Up)
+	   funcList_tHq.add(sigTemplatePdf_tHq_Down)
                 
         morphSigVarName = "CMS_zz4l_sigMELA_{0:.0f}".format(self.channel)				## it is a nuisance
         alphaMorphSig = ROOT.RooRealVar(morphSigVarName,morphSigVarName,0,-20,20)
@@ -672,9 +699,11 @@ class datacardClass:
 
         TemplateName = "sigTemplateMorphPdf_ggH_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         sigTemplateMorphPdf_ggH = ROOT.FastVerticalInterpHistPdf2D(TemplateName,TemplateName,CMS_zz4l_mass,D,self.Interp,funcList_ggH,morphVarListSig,1.0,1)
-        print '\n\n\n\n'
+        '''
+	print '\n\n\n\n'
 	sigTemplateMorphPdf_ggH.Print()
 	print '\n\n\n\n'
+	'''
 	#sigTemplateMorphPdf_ggH = ROOT.FastVerticalInterpHistPdf2D(TemplateName,TemplateName,CMS_zz4l_mass,D,self.Interp,ROOT.RooArgList(sigTemplatePdf_ggH),ROOT.RooArgList(),1.0,1)
 
         TemplateName = "sigTemplateMorphPdf_VBF_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
@@ -692,6 +721,9 @@ class datacardClass:
         TemplateName = "sigTemplateMorphPdf_bbH_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         sigTemplateMorphPdf_bbH = ROOT.FastVerticalInterpHistPdf2D(TemplateName,TemplateName,CMS_zz4l_mass,D,self.Interp,funcList_bbH,morphVarListSig,1.0,1)
 
+	TemplateName = "sigTemplateMorphPdf_tHq_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+	sigTemplateMorphPdf_tHq = ROOT.FastVerticalInterpHistPdf2D(TemplateName,TemplateName,CMS_zz4l_mass,D,self.Interp,funcList_tHq,morphVarListSig,1.0,1)
+
         ##### 2D -> mass4l + KD  or mass4l,delta_m + KD
         name = "sigCB2d_ggH_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         sigCB2d_ggH = ROOT.RooProdPdf(name,name,ROOT.RooArgSet(self.getVariable(sig_ggHErr,signalCB_ggH, self.bIncludingError)),ROOT.RooFit.Conditional(ROOT.RooArgSet(sigTemplateMorphPdf_ggH),ROOT.RooArgSet(D) ) )
@@ -704,7 +736,9 @@ class datacardClass:
 	name = "sigCB2d_ttH_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         sigCB2d_ttH = ROOT.RooProdPdf(name,name,ROOT.RooArgSet(self.getVariable(sig_ttHErr,signalCB_ttH, self.bIncludingError)),ROOT.RooFit.Conditional(ROOT.RooArgSet(sigTemplateMorphPdf_ttH),ROOT.RooArgSet(D) ) )       
 	name = "sigCB2d_bbH_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
-        sigCB2d_bbH = ROOT.RooProdPdf(name,name,ROOT.RooArgSet(self.getVariable(sig_bbHErr,signalCB_bbH, self.bIncludingError)),ROOT.RooFit.Conditional(ROOT.RooArgSet(sigTemplateMorphPdf_bbH),ROOT.RooArgSet(D) ) )       
+        sigCB2d_bbH = ROOT.RooProdPdf(name,name,ROOT.RooArgSet(self.getVariable(sig_bbHErr,signalCB_bbH, self.bIncludingError)),ROOT.RooFit.Conditional(ROOT.RooArgSet(sigTemplateMorphPdf_bbH),ROOT.RooArgSet(D) ) )       	
+	name = "sigCB2d_tHq_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+        sigCB2d_tHq = ROOT.RooProdPdf(name,name,ROOT.RooArgSet(self.getVariable(sig_tHqErr,signalCB_tHq, self.bIncludingError)),ROOT.RooFit.Conditional(ROOT.RooArgSet(sigTemplateMorphPdf_tHq),ROOT.RooArgSet(D) ) )       
 
       ## ----------------- 2D BACKGROUND SHAPES --------------- ##
         qqzzbkgTemplate_beforeFix = fi.Get('qqzz_'+self.year+'_'+self.fs_name+'_'+self.cate_name+'_'+self.tag_name+'_kd')
@@ -766,9 +800,11 @@ class datacardClass:
 	TemplateName = "bkgTemplateMorphPdf_qqzz_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         bkgTemplateMorphPdf_qqzz = ROOT.FastVerticalInterpHistPdf2D(TemplateName,TemplateName,CMS_zz4l_mass,D,self.Interp,ROOT.RooArgList(qqzzbkgTemplatePdf),ROOT.RooArgList(),1.0,1)
 	#bkgTemplateMorphPdf_qqzz = sigTemplateMorphPdf_ggH.Clone(TemplateName)	
-        print '\n\n\n\n'
+        '''
+	print '\n\n\n\n'
 	bkgTemplateMorphPdf_qqzz.Print()
 	print '\n\n\n\n'
+	'''
 
         TemplateName = "bkgTemplateMorphPdf_ggzz_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         bkgTemplateMorphPdf_ggzz = ROOT.FastVerticalInterpHistPdf2D(TemplateName,TemplateName,CMS_zz4l_mass,D,self.Interp,ROOT.RooArgList(ggzzbkgTemplatePdf),ROOT.RooArgList(),1.0,1)
@@ -808,6 +844,7 @@ class datacardClass:
         sigRate_ZH_Shape = 1
         sigRate_ttH_Shape = 1
 	sigRate_bbH_Shape = 1
+	sigRate_tHq_Shape = 1
         
 	print 'load signal yield parameterization'  
         ## what go into ws
@@ -838,6 +875,9 @@ class datacardClass:
 	
 	name = "sigrate_bbh_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
 	rfvSigRate_bbH = ROOT.RooFormulaVar("bbH_hzz_norm","("+params[name]+")",ROOT.RooArgList(self.MH))
+
+	name = "sigrate_thq_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+	rfvSigRate_tHq = ROOT.RooFormulaVar("tHq_hzz_norm","("+params[name]+")",ROOT.RooArgList(self.MH))
 
         print 'decide the final one export into the ws'
 
@@ -1041,6 +1081,7 @@ class datacardClass:
         getattr(w,'import')(rfvSigRate_ZH, ROOT.RooFit.RecycleConflictNodes())
         getattr(w,'import')(rfvSigRate_ttH, ROOT.RooFit.RecycleConflictNodes())
 	getattr(w,'import')(rfvSigRate_bbH, ROOT.RooFit.RecycleConflictNodes())
+	getattr(w,'import')(rfvSigRate_tHq, ROOT.RooFit.RecycleConflictNodes())
         
 	CMS_zz4l_mass.setRange(self.low_M,self.high_M)
 	w.writeToFile(name_ShapeWS)									##write 'w' to name_ShapeWS
@@ -1053,7 +1094,7 @@ class datacardClass:
         if not self.WH_chan:   sigRate_WH_Shape = 0
         if not self.ZH_chan:   sigRate_ZH_Shape = 0
         if not self.ttH_chan:  sigRate_ttH_Shape = 0
-
+	if not self.tHq_chan:  sigRate_tHq_Shape = 0
         if not self.qqZZ_chan:  bkgRate_qqzz_Shape = 0
         if not self.ggZZ_chan:  bkgRate_ggzz_Shape = 0
         if not self.zjets_chan: bkgRate_zjets_Shape = 0
@@ -1067,6 +1108,7 @@ class datacardClass:
         rates['ZH']  = sigRate_ZH_Shape#*scaleLumi*scalenlo
         rates['ttH'] = sigRate_ttH_Shape#*scaleLumi*scalenlo
 	rates['bbH'] = sigRate_bbH_Shape#
+	rates['tHq'] = sigRate_tHq_Shape#
 
         rates['qqZZ']  = bkgRate_qqzz_Shape#bkgRate_qqzz_Shape
         rates['ggZZ']  = bkgRate_ggzz_Shape#bkgRate_ggzz_Shape
@@ -1166,10 +1208,10 @@ class datacardClass:
         file.write("## mass window [{0},{1}] \n".format(self.low_M,self.high_M))
         file.write("bin ")        
 
-        channelList=['ggH','qqH','WH','ZH','ttH','bbH','qqZZ','ggZZ','zjets','ttbar','zbb']
+        channelList=['ggH','qqH','WH','ZH','ttH','bbH','tHq','qqZZ','ggZZ','zjets','ttbar','zbb']
 
-        channelName1D=['ggH_hzz','qqH_hzz','WH_hzz','ZH_hzz','ttH_hzz','bbH_hzz','bkg_qqzz','bkg_ggzz','bkg_zjets','bkg_ttbar','bkg_zbb']
-        channelName2D=['ggH_hzz','qqH_hzz','WH_hzz','ZH_hzz','ttH_hzz','bbH_hzz','bkg2d_qqzz','bkg2d_ggzz','bkg2d_zjets','bkg2d_ttbar','bkg2d_zbb']
+        channelName1D=['ggH_hzz','qqH_hzz','WH_hzz','ZH_hzz','ttH_hzz','bbH_hzz','tHq_hzz','bkg_qqzz','bkg_ggzz','bkg_zjets','bkg_ttbar','bkg_zbb']
+        channelName2D=['ggH_hzz','qqH_hzz','WH_hzz','ZH_hzz','ttH_hzz','bbH_hzz','tHq_hzz','bkg2d_qqzz','bkg2d_ggzz','bkg2d_zjets','bkg2d_ttbar','bkg2d_zbb']
 		 
         for chan in channelList:
             if theInputs[chan]:
@@ -1221,6 +1263,7 @@ class datacardClass:
         if inputs['ZH']:  counter+=1
         if inputs['ttH']: counter+=1
 	if inputs['bbH']: counter+=1
+	if inputs['tHq']: counter+=1
         if inputs['all']: counter+=1
         
         return counter

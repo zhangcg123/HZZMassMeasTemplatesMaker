@@ -45,7 +45,8 @@ void EventYield_(TString plotpath, int fs, TString type, TString tag, TString ye
 	if(process=="tth"&&BASE=="20UL")process_="ttH_HToZZ_4LFilter_M";
 	if(process=="tth"&&BASE=="ReReco")process_ = "ttH";
 	if(process=="bbh"&&BASE=="20UL")process_="bbH_HToZZTo4L_M";
-	
+	if(process=="thq"&&BASE=="20UL")process_="tHq_HToZZTo4L_M";
+
 	TFile* f_120 = new TFile();
 	TFile* f_124 = new TFile();
 	TFile* f_125 = new TFile();

@@ -7,33 +7,37 @@ void Read4LSlimmedTree1DCategory(vector<TH1F*>& histos, TH1F* h_std, TTree* t, i
 void Read4LSlimmedTree1DCategoryForKD(vector<TH2F*>& histos, TH1F* h_std, TTree* t, int fs, TString Type, TString tag);
 void Read4LSlimmedTree1DCategoryForDm(vector<TH1D*>& histos, TH1F* h_std, TTree* t, int fs, TString Type, TString tag);
 
-void Read4LSlimmedTreeFindmass4lErrCategorization(TTree* t, vector<TH1D*>& hists, int fs, vector<float>& bounds, TString Type, TString tag){//used to find mass4Err bounds, it's not very general, type=RECO/REFIT, tag=Notag/Untag/VBFtag
+void updatebounds(int _fs);
+
+void Read4LSlimmedTreeFindmass4lErrCategorization(TTree* t, vector<TH1D*>& hists, int fs, vector<float>& bounds, TString Type, TString tag){//used to find relative mass4Err bounds. type=RECO/REFIT, tag=Notag/Untag/VBFtag
 	
-	vector<float> mass4lErr_list; mass4lErr_list.clear();					//fill mass4lErr into std::vector in order to sort them
+	updatebounds(fs);
+	
+	vector<float> rel_mass4lErr_list; rel_mass4lErr_list.clear();					//fill relative mass4lErr into std::vector in order to sort them
 	for(int i=0; i<t->GetEntries(); i++){
 		if(i%100000==0)cout<<i<<"/"<<t->GetEntries()<<endl;
 		t->GetEntry(i);
-		if(mass4l<140&&mass4l>105&&finalState==fs&&abs(eta1)<2.4&&abs(eta2)<2.4&&abs(eta3)<2.4&&abs(eta4)<2.4){
+		if((mass4lErr/mass4l<0.1)&&mass4l<140&&mass4l>105&&finalState==fs&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4){
 			if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
-				mass4lErr_list.push_back(mass4lErr);
+				rel_mass4lErr_list.push_back(mass4lErr/mass4l);
 			}		
 		}
 	}
 
-	sort(mass4lErr_list.begin(), mass4lErr_list.end());					//sort mass4lErr
+	sort(rel_mass4lErr_list.begin(), rel_mass4lErr_list.end());
 	
-	float nEvent = mass4lErr_list.size();							//boundary value
+	float nEvent = rel_mass4lErr_list.size();
 	int nEvent_perCate = floor(nEvent/hists.size());
 	bounds.push_back(0.0);//the first bin low edge
 	for(int i=1; i<hists.size(); i++){//1-9
-		bounds.push_back(mass4lErr_list.at(i*nEvent_perCate));//
+		bounds.push_back(rel_mass4lErr_list.at(i*nEvent_perCate));//
 	}
-	bounds.push_back(50);//the last bin high edge
+	bounds.push_back(0.1);//the last bin high edge
 
-	for(int i=0; i<hists.size(); i++){							//fill TH1F with vector elements, time-wasting but humanreadable
-		for(int j=0; j<mass4lErr_list.size(); j++){
-			if(bounds.at(i)<mass4lErr_list.at(j)&&mass4lErr_list.at(j)<bounds.at(i+1)){
-				hists.at(i)->Fill(mass4lErr_list.at(j));
+	for(int i=0; i<hists.size(); i++){
+		for(int j=0; j<rel_mass4lErr_list.size(); j++){
+			if(bounds.at(i)<rel_mass4lErr_list.at(j)&&rel_mass4lErr_list.at(j)<bounds.at(i+1)){
+				hists.at(i)->Fill(rel_mass4lErr_list.at(j));
 			}
 		}
 	}	
@@ -41,7 +45,8 @@ void Read4LSlimmedTreeFindmass4lErrCategorization(TTree* t, vector<TH1D*>& hists
 
 void ReadTreeForEventYield(double* yield, double* yielderr, TH1F* h_std, TTree* t, int fs, TString year, TString process, int mass, TString Type, TString tag){//qqzz isnt here, because cant get ntot automaticlly
 	bool Phase2=false;
-
+	
+	updatebounds(fs);
         Set4LSlimmedTree(t, Type);
 
         double Lumi;
@@ -205,6 +210,13 @@ void ReadTreeForEventYield(double* yield, double* yielderr, TH1F* h_std, TTree* 
 		if(mass==126)xs=0.000142;
 		if(mass==130)xs=0.000177;
 	}
+	if(process=="thq"&&BASE=="20UL"){
+		if(mass==120)xs=0.0000857830;
+		if(mass==124)xs=0.0000857830;
+		if(mass==125)xs=0.0000857830;
+		if(mass==126)xs=0.0000857830;
+		if(mass==130)xs=0.0000857830;
+	}
 
 	if(process=="ggzz"&&BASE=="ReReco"){
 		if(fs==1||fs==2)xs=0.00159/0.00159;
@@ -257,6 +269,10 @@ void ReadTreeForEventYield(double* yield, double* yielderr, TH1F* h_std, TTree* 
 		if(BASE=="20UL")process_ = "bbH_HToZZTo4L_M";
 		mass_s = to_string(mass);
 	}
+	if(process=="thq"){
+		if(BASE=="20UL")process_ = "tHq_HToZZTo4L_M";
+		mass_s = to_string(mass);
+	}
         if(process=="ggzz"&&fs==1){
 		if(BASE=="20UL")process_ = "GluGluToContinToZZTo4mu_M";
 		if(BASE=="ReReco")process_ = "ggZZ_4mu"; mass_s = "125";
@@ -288,13 +304,14 @@ void ReadTreeForEventYield(double* yield, double* yielderr, TH1F* h_std, TTree* 
 				Ntotpath = "/eos/cms/store/group/phys_higgs/cmshzz4l/xBF/Run2/UL/MC/"+year+"/"+process_ + mass_s + "_"+ year + "_skimmed.root";
 			}
 		}
+		if(process_=="tHq_HToZZTo4L_M"){
+			mass_s = "125";
+			Ntotpath = "/eos/cms/store/group/phys_higgs/cmshzz4l/xBF/Run2/UL/MC/"+year+"/"+process_ + mass_s + "_"+ year + "_skimmed.root";
+		}
 	}
 	TFile* f = new TFile(Ntotpath);
-        TTree* t_ = (TTree*)f->Get("Ana/passedEvents");
-	if(!t_)t_ = (TTree*)f->Get("passedEvents");
-        double Ntot = t_->GetEntries();
         TH1F* h_ = (TH1F*)f->Get("sumWeights");
-	if(year=="20160")Ntot = h_->Integral();
+	int Ntot = h_->Integral();
 	delete f;
 	//end retrieve Ntot
 	
@@ -309,10 +326,10 @@ void ReadTreeForEventYield(double* yield, double* yielderr, TH1F* h_std, TTree* 
                 //if(i>1000)break;
                 if(i%100000==0)cout<<i<<"/"<<t->GetEntries()<<endl;
                 t->GetEntry(i);
-		if(mass4l<140&&mass4l>105&&mass4lErr<50&&finalState==fs&&passedFullSelection==1&&abs(eta1)<2.4&&abs(eta2)<2.4&&abs(eta3)<2.4&&abs(eta4)<2.4){
+		if(mass4l<140&&mass4l>105&&(mass4lErr/mass4l)<0.1&&finalState==fs&&passedFullSelection==1&&abs(eta1)<ETA1&&abs(eta2)<ETA1&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4){
                         if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
                                 if(process=="ggzz")k=k_ggZZ;
-                                bin1 = h_x->FindBin(mass4lErr)-1;
+                                bin1 = h_x->FindBin(mass4lErr/mass4l)-1;
                                 yield[bin1] = yield[bin1] + eventWeight*k*update_sf;
 				yielderr[bin1] = yielderr[bin1] + (eventWeight*k*update_sf)*(eventWeight*k*update_sf);
                         }
@@ -328,6 +345,7 @@ void ReadTreeForEventYield(double* yield, double* yielderr, TH1F* h_std, TTree* 
 void ReadTreeForQQZZEventYield(double* yield, TH1F* h_std, TTree* t, int fs, TString year, TString process, TString Type, TString tag){
 	
 	bool Phase2=false;
+	updatebounds(fs);
 
         Set4LSlimmedTree(t, Type);
 
@@ -363,10 +381,10 @@ void ReadTreeForQQZZEventYield(double* yield, TH1F* h_std, TTree* t, int fs, TSt
         for(int i=0; i<t->GetEntries(); i++){
                 if(i%100000==0)cout<<i<<"/"<<t->GetEntries()<<endl;
 		t->GetEntry(i);               
-		if(mass4l<140&&mass4l>105&&mass4lErr<50&&finalState==fs&&passedFullSelection==1&&abs(eta1)<2.4&&abs(eta2)<2.4&&abs(eta3)<2.4&&abs(eta4)<2.4){
+		if(mass4l<140&&mass4l>105&&(mass4lErr/mass4l)<0.1&&finalState==fs&&passedFullSelection==1&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4){
                         if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
                                 k=k_qqZZ_ewk*k_qqZZ_qcd_M;
-                                bin1 = h_x->FindBin(mass4lErr)-1;
+                                bin1 = h_x->FindBin(mass4lErr/mass4l)-1;
                                 yield[bin1] = yield[bin1] + eventWeight*k;
                         }
                 }
@@ -387,16 +405,17 @@ void ReadTreeForQQZZEventYield(double* yield, TH1F* h_std, TTree* t, int fs, TSt
 }
 
 void Read4LSlimmedTree1DCategoryUnbinned(vector<RooDataSet*>& histos, TH1F* h_std, TTree* t, int fs, TString Type, TString tag){
-        Set4LSlimmedTree(t,Type);
+        updatebounds(fs);
+	Set4LSlimmedTree(t,Type);
         TAxis* h_x = h_std->GetXaxis();
         int bin;
         RooRealVar mass4l_("mass4l","",105,140);
         for(int i=0; i<t->GetEntries(); i++){
                 if(i%100000==0)cout<<i<<"/"<<t->GetEntries()<<endl;
 		t->GetEntry(i);
-                if(mass4l>105&&mass4l<140&&mass4lErr<50&&finalState==fs&&abs(eta1)<2.4&&abs(eta2)<2.4&&abs(eta3)<2.4&&abs(eta4)<2.4){
+                if(mass4l>105&&mass4l<140&&(mass4lErr/mass4l)<0.1&&finalState==fs&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4){
                         if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
-                                bin = h_x->FindBin(mass4lErr)-1;
+                                bin = h_x->FindBin(mass4lErr/mass4l)-1;
                                 mass4l_.setVal(mass4l);
                                 histos.at(bin)->add(mass4l_);
                         }
@@ -405,16 +424,17 @@ void Read4LSlimmedTree1DCategoryUnbinned(vector<RooDataSet*>& histos, TH1F* h_st
 }
 
 void Read4LSlimmedTree1DCategory(vector<TH1F*>& histos, TH1F* h_std, TTree* t, int fs, TString Type, TString tag){
-        Set4LSlimmedTree(t, Type);
+        updatebounds(fs);
+	Set4LSlimmedTree(t, Type);
         TAxis* h_x = h_std->GetXaxis();
         int bin1;
         for(int i=0; i<t->GetEntries(); i++){
                 if(i%100000==0)cout<<i<<"/"<<t->GetEntries()<<endl;
 		//if(i<1000)break;
                 t->GetEntry(i);
-                if(mass4l>105&&mass4l<140&&mass4lErr<50&&finalState==fs&&abs(eta1)<2.4&&abs(eta2)<2.4&&abs(eta3)<2.4&&abs(eta4)<2.4){
+                if((mass4lErr/mass4l)<0.1&&mass4l>105&&mass4l<140&&finalState==fs&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4){
                         if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
-                                bin1 = h_x->FindBin(mass4lErr)-1;
+                                bin1 = h_x->FindBin(mass4lErr/mass4l)-1;
                                 histos.at(bin1)->Fill(mass4l);
                         }
                 }
@@ -422,15 +442,16 @@ void Read4LSlimmedTree1DCategory(vector<TH1F*>& histos, TH1F* h_std, TTree* t, i
 }
 
 void Read4LSlimmedTree1DCategoryForKD(vector<TH2F*>& histos, TH1F* h_std, TTree* t, int fs, TString Type, TString tag){
-        Set4LSlimmedTree(t,Type);
+        updatebounds(fs);
+	Set4LSlimmedTree(t,Type);
         TAxis* h_x = h_std->GetXaxis();
         int bin1;
         for(int i=0; i<t->GetEntries(); i++){
                 if(i%100000==0)cout<<i<<"/"<<t->GetEntries()<<endl;
 		t->GetEntry(i);
-                if(mass4l>105&&mass4l<140&&mass4lErr<50&&finalState==fs&&abs(eta1)<2.4&&abs(eta2)<2.4&&abs(eta3)<2.4&&abs(eta4)<2.4){
+                if((mass4lErr/mass4l)<0.1&&mass4l>105&&mass4l<140&&finalState==fs&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4){
                         if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
-                                bin1 = h_x->FindBin(mass4lErr)-1;
+                                bin1 = h_x->FindBin(mass4lErr/mass4l)-1;
                                 histos.at(bin1)->Fill(mass4l,KD);
                         }
                 }
@@ -438,15 +459,16 @@ void Read4LSlimmedTree1DCategoryForKD(vector<TH2F*>& histos, TH1F* h_std, TTree*
 }
 
 void Read4LSlimmedTree1DCategoryForDm(vector<TH1D*>& histos, TH1F* h_std, TTree* t, int fs, TString Type, TString tag){
-        Set4LSlimmedTree(t,Type);
+        updatebounds(fs);
+	Set4LSlimmedTree(t,Type);
         TAxis* h_x = h_std->GetXaxis();
         int bin1;
         for(int i=0; i<t->GetEntries(); i++){
                 if(i%100000==0)cout<<i<<"/"<<t->GetEntries()<<endl;
 		t->GetEntry(i);
-                if(mass4l>105&&mass4l<140&&mass4lErr<50&&(finalState==fs)&&abs(eta1)<2.4&&abs(eta2)<2.4&&abs(eta3)<2.4&&abs(eta4)<2.4){
+                if((mass4lErr/mass4l)<0.1&&mass4l>105&&mass4l<140&&(finalState==fs)&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4){
                         if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
-                                bin1 = h_x->FindBin(mass4lErr)-1;
+                                bin1 = h_x->FindBin(mass4lErr/mass4l)-1;
                                 histos.at(bin1)->Fill(mass4lErr/mass4l);
                         }
                 }

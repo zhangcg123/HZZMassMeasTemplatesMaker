@@ -42,11 +42,26 @@ bool passedFullSelection;
 int EventCat;
 float pt1, pt2, pt3, pt4, eta1, eta2, eta3, eta4;
 
+float ETA1, ETA2, ETA3, ETA4, PT1, PT2, PT3, PT4;
+
 //for ZX code
 int is2P2F, isMCzz, is3P1F;
 float massZ2, D_bkg_kin, eventWeightFR, eventWeightFR_up, eventWeightFR_down, pileupWeight;
 //
-
+void updatebounds(int _fs){
+	if(_fs==1){
+		ETA1=2.4;ETA2=2.4;ETA3=2.4;ETA4=2.4;PT1=5;PT2=5;PT3=5;PT4=5;
+	}
+	if(_fs==2){
+		ETA1=2.5;ETA2=2.5;ETA3=2.5;ETA4=2.5;PT1=7;PT2=7;PT3=7;PT4=7;
+	}
+	if(_fs==3){
+		ETA1=2.5;ETA2=2.5;ETA3=2.4;ETA4=2.4;PT1=7;PT2=7;PT3=5;PT4=5;
+	}
+	if(_fs==4){
+		ETA1=2.4;ETA2=2.4;ETA3=2.5;ETA4=2.5;PT1=5;PT2=5;PT3=7;PT4=7;
+	}
+}
 #define UL20
 //#define ReReco
 #ifdef UL20

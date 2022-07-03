@@ -35,6 +35,7 @@ class inputReader:
         self.ZH_chan = False
         self.ttH_chan = False
         self.bbH_chan = False
+	self.tHq_chan = False
 	self.qqZZ_chan = False
         self.ggZZ_chan = False
         self.zjets_chan = False
@@ -97,13 +98,13 @@ class inputReader:
                     elif chan.lower().startswith("zh"):    self.ZH_chan = True
                     elif chan.lower().startswith("tth"):   self.ttH_chan = True
 		    elif chan.lower().startswith("bbh"):   self.bbH_chan = True
-                    elif chan.lower().startswith("qqzz"):  self.qqZZ_chan = True#True
+		    elif chan.lower().startswith('thq'):   self.tHq_chan = True
+                    elif chan.lower().startswith("qqzz"):  self.qqZZ_chan = True
                     elif chan.lower().startswith("ggzz"):  self.ggZZ_chan = True
                     elif chan.lower().startswith("zjets"): self.zjets_chan = True
-                    elif chan.lower().startswith("ttbar"): self.ttbar_chan = False#True
-                    elif chan.lower().startswith("zbb"):   self.zbb_chan = False#True
-                    elif chan.lower().startswith("all"):   self.all_chan = False#True
-                    elif chan.lower().startswith('thq'):   self.tHq_chan = False
+                    elif chan.lower().startswith("ttbar"): self.ttbar_chan = False
+                    elif chan.lower().startswith("zbb"):   self.zbb_chan = False
+                    elif chan.lower().startswith("all"):   self.all_chan = False
 		    else : raise RuntimeError, "Unknown channel {0}, choices are ggH, qqH, WH, ZH, ttH, qqZZ, ggZZ, zjets".format(chan)
 
             if f[0].lower().startswith("systematic"):
@@ -173,6 +174,7 @@ class inputReader:
         dict['ZH'] = self.ZH_chan
         dict['ttH'] = self.ttH_chan
         dict['bbH'] = self.bbH_chan
+	dict['tHq'] = self.tHq_chan
 	dict['ggH_SM'] = self.ggH_chan
         dict['qqH_SM'] = self.qqH_chan
         dict['WH_SM'] = self.WH_chan
