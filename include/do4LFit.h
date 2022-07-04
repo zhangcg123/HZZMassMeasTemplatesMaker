@@ -465,9 +465,9 @@ void FitEventYield(double p1, double p1err, double p2, double p2err, double p3, 
         g->GetYaxis()->SetTitle("expected yield");
         g->GetHistogram()->SetMinimum(0);
 //retrieve max point
-        double tmp_max = y[0];
+        double tmp_max = y[0]+yerr[0];
         for(int i=1; i<5; i++){
-                if(tmp_max < y[i])tmp_max = y[i];
+                if(tmp_max < (y[i]+yerr[i]))tmp_max = y[i]+yerr[i];
         }
         g->GetHistogram()->SetMaximum(tmp_max+tmp_max*0.2);
         g->GetXaxis()->SetLimits(115,135);
@@ -479,7 +479,6 @@ void FitEventYield(double p1, double p1err, double p2, double p2err, double p3, 
         g->Draw("ap");
         c.SaveAs(plotpath+year+"_"+fs_name+"_"+type+"_"+tag+"_"+cate_name+"_signorm_"+process+".png");
 
-
         TString p0_s, p1_s, p2_s;
         p0_s = to_string(p1_0);
         p1_s = to_string(p1_1);
@@ -490,4 +489,11 @@ void FitEventYield(double p1, double p1err, double p2, double p2err, double p3, 
 	in<<"'sigrate_"+process+"_"+year+"_"+fs_name+"_"+cate_name+"_"+tag+"' : '("+p0_s+")+("+p1_s+"*@0)+("+p2_s+"*@0*@0)',"<<endl;
         in<<"}"<<endl;
 	in.close();
+
+	in.open(plotpath+year+"_"+fs_name+"_"+type+"_"+tag+"_"+cate_name+"_sigabsnorm_"+process+".py");
+	in<<"info = {"<<endl;
+	in<<"'abs_sigrate_"+process+"_"+year+"_"+fs_name+"_"+cate_name+"_"+tag+"' :"+to_string(y[2])+","<<endl;
+	in<<"}"<<endl;
+	in.close();
+
 }

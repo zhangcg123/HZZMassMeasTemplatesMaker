@@ -2,8 +2,8 @@
 #include "include/Read4LSlimmedTree.h"
 #include "include/do4LFit.h"
 #include "include/MakePlot.h"
-
-void BKGEventYield_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, TString process);
+void BKGEventYieldFromTau_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, double* yields_bkg);
+void BKGEventYield_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, TString process, double* yields_bkg);
 
 int main(int argc, char *argv[]){
         TString year  = argv[1];
@@ -15,10 +15,49 @@ int main(int argc, char *argv[]){
         TString steponedir = argv[7];
 	TString process = argv[8];
 
-	BKGEventYield_(plotpath, fs, type, tag, year, cates, steponedir, process);
+	TString fs_name;
+	if(fs==1)fs_name = "4mu";
+	if(fs==2)fs_name = "4e";
+	if(fs==3)fs_name = "2e2mu";
+	if(fs==4)fs_name = "2mu2e";
+		
+	double yields_bkg[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+	BKGEventYield_(plotpath, fs, type, tag, year, cates, steponedir, process, yields_bkg);
+	BKGEventYieldFromTau_(plotpath, fs, type, tag, year, cates, steponedir, yields_bkg);
+
+	for(int i=0; i<cates; i++){
+		TString i_s = to_string(i);
+		MakeBKGEventYieldPlot(yields_bkg[i], plotpath, i_s, fs_name, type, process, tag, year);
+	}
 }
 
-void BKGEventYield_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, TString process){
+void BKGEventYieldFromTau_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, double* yields_bkg){
+	
+	TString fs_name;
+	if(fs==1)fs_name = "4mu";
+	if(fs==2)fs_name = "4e";
+	if(fs==3)fs_name = "2e2mu";
+	if(fs==4)fs_name = "2mu2e";
+	TFile* f = new TFile(steponedir + "/_"+fs_name+"_bounds.root");
+	TH1F* h_std = (TH1F*)f->Get("bounds");
+	
+	TFile* f_2e2tau = new TFile("/afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/HZZMassMeasTemplatesMaker/Others/Slimmer/OutPutTrees/"+year+"/GluGluToContinToZZTo2e2tau_M125_"+year+"_skimmed.root","READ");
+	TFile* f_2mu2tau = new TFile("/afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/HZZMassMeasTemplatesMaker/Others/Slimmer/OutPutTrees/"+year+"/GluGluToContinToZZTo2mu2tau_M125_"+year+"_skimmed.root","READ");
+	TFile* f_4tau = new TFile("/afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/HZZMassMeasTemplatesMaker/Others/Slimmer/OutPutTrees/"+year+"/GluGluToContinToZZTo4tau_M125_"+year+"_skimmed.root","READ");
+	TTree* t_2e2tau = (TTree*)f_2e2tau->Get("passedEvents");
+	TTree* t_2mu2tau = (TTree*)f_2mu2tau->Get("passedEvents");
+	TTree* t_4tau = (TTree*)f_4tau->Get("passedEvents");
+	
+	ReadTreeForTau(yields_bkg, h_std, t_2e2tau, t_2mu2tau, t_4tau, fs, year, type, tag);
+	//for(int i=0; i<cates; i++){
+	//	TString i_s = to_string(i);
+	//	MakeBKGEventYieldPlot(yields_bkg[i], plotpath, i_s, fs_name, type, "ggzz_tau", tag, year);
+	//}
+}
+	
+
+	
+void BKGEventYield_(TString plotpath, int fs, TString type, TString tag, TString year, int cates, TString steponedir, TString process, double* yields_bkg){
 	
 	TString fs_name;
 	if(fs==1)fs_name = "4mu";
@@ -44,14 +83,14 @@ void BKGEventYield_(TString plotpath, int fs, TString type, TString tag, TString
 	if(BASE=="20UL")f_ = new TFile("/afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/HZZMassMeasTemplatesMaker/Others/Slimmer/OutPutTrees/"+year+"/"+process_+".root");
 	TTree* t = (TTree*)f_->Get("passedEvents");
 
-	double yields_bkg[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+	//double yields_bkg[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	double yielderr[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 	if(process=="qqzz")ReadTreeForQQZZEventYield(yields_bkg, h_std, t, fs, year, process, type, tag);
 	if(process=="ggzz")ReadTreeForEventYield(yields_bkg, yielderr, h_std, t, fs, year, process, 0, type, tag);
 
-	for(int i=0; i<cates; i++){
-		TString i_s = to_string(i);
-		MakeBKGEventYieldPlot(yields_bkg[i], plotpath, i_s, fs_name, type, process, tag, year);
-	}
+	//for(int i=0; i<cates; i++){
+	//	TString i_s = to_string(i);
+	//	MakeBKGEventYieldPlot(yields_bkg[i], plotpath, i_s, fs_name, type, process, tag, year);
+	//}
 }

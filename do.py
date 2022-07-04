@@ -178,4 +178,7 @@ if dic['step13']:
 	fo.cd()
 	for h in histolist:
 		h.Write()
-	fo.Close()		
+	fo.Close()
+	
+	#for i in infodicttojson:
+	#	print i, infodicttojson	

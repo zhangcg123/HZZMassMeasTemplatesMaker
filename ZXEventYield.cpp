@@ -138,7 +138,7 @@ void ZXEventYield_(TString plotpath_norm, TString plotpath_param, TString plotpa
 	int tot_ = t->GetEntries();
 	for(int i=0; i<tot_; i++){
 		t->GetEntry(i);
-		if((mass4lErr/mass4l)<0.1&&mass4l>105&&mass4l<140&&finalState==fs/*&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4*/){//for kdmap
+		if((mass4lErr/mass4l)<0.3&&mass4l>105&&mass4l<140&&finalState==fs/*&&abs(eta1)<ETA1&&abs(eta2)<ETA2&&abs(eta3)<ETA3&&abs(eta4)<ETA4&&pt1>PT1&&pt2>PT2&&pt3>PT3&&pt4>PT4*/){//for kdmap
 			if((tag=="notag")||(tag=="vbftag"&&EventCat==2)||(tag=="untag"&&EventCat!=2)){
 				int bin1 = h_x->FindBin(mass4lErr/mass4l)-1;
 				if(is2P2F==1){
