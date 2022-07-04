@@ -23,7 +23,7 @@ int main(int argc, char *argv[]){
 		
 	double yields_bkg[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 	BKGEventYield_(plotpath, fs, type, tag, year, cates, steponedir, process, yields_bkg);
-	BKGEventYieldFromTau_(plotpath, fs, type, tag, year, cates, steponedir, yields_bkg);
+	if(process=="ggzz")BKGEventYieldFromTau_(plotpath, fs, type, tag, year, cates, steponedir, yields_bkg);
 
 	for(int i=0; i<cates; i++){
 		TString i_s = to_string(i);
