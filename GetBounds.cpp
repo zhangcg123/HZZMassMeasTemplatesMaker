@@ -31,7 +31,7 @@ void GetBounds_(TString plotpath, int fs, TString type, TString tag, TString yea
 	vector<TH1D*> hists; hists.clear();
 	for(int i=0; i<cates; i++){
 		TString i_s = to_string(i);
-		TH1D* h = new TH1D("h"+i_s,"",100,0,0.3);
+		TH1D* h = new TH1D("h"+i_s,"",100,0,MERR);
 		hists.push_back(h);
 	}
 

@@ -44,6 +44,9 @@ float pt1, pt2, pt3, pt4, eta1, eta2, eta3, eta4;
 
 float ETA1, ETA2, ETA3, ETA4, PT1, PT2, PT3, PT4;
 
+float MERR = 0.1;
+
+
 //for ZX code
 int is2P2F, isMCzz, is3P1F;
 float massZ2, D_bkg_kin, eventWeightFR, eventWeightFR_up, eventWeightFR_down, pileupWeight;
