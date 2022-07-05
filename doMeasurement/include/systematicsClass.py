@@ -395,7 +395,7 @@ class systematicsClass:
     def Write_eff_e(self,theFile,theInputs):
     
         if self.channel == self.ID_4e or self.channel == self.ID_2e2mu or self.channel == self.ID_2mu2e:
-            theFile.write("CMS_eff_e_"+self.year+" lnN ")
+            theFile.write("CMS_eff_e lnN ")
 
 	    sig4edn = self.ele_signal_low
 	    sig4eup = self.ele_signal_high
@@ -421,7 +421,7 @@ class systematicsClass:
     
     def Write_eff_m(self,theFile,theInputs):
         if self.channel == self.ID_4mu or self.channel == self.ID_2e2mu or self.channel == self.ID_2mu2e:
-            theFile.write("CMS_eff_m_"+self.year+" lnN ")
+            theFile.write("CMS_eff_m lnN ")
 
             sig4mudn = self.mu_signal_low
 	    sig4muup = self.mu_signal_high

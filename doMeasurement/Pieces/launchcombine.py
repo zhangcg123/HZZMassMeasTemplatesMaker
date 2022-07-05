@@ -146,7 +146,7 @@ if channel == '4mu' or channel == 'allfinalstates':
 		ranges['MH'] = [124.38,126.38]
 		ranges['HiggsDecayWidth'] = [0.0,2.5]
 
-file_list = glob.glob('*allcategs.txt')
+file_list = glob.glob('*allcategs_13TeV.txt')
 newlist = []
 for f in file_list:	#remove prefix path
 	newlist.append(f.split('/')[-1])

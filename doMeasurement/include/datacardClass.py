@@ -224,19 +224,19 @@ class datacardClass:
         self.high_M = 140.0
         
 	##-------------------------- NUISANCES VARIABLES ----------------------------- ##					#different models can and need to share same nuisances, so they aren't assigned with distinc name
-        name = "CMS_zz4l_mean_e_sig"
-        CMS_zz4l_mean_e_sig = ROOT.RooRealVar(name,"CMS_zz4l_mean_e_sig",0.0,-10.0,10.0)
-        name = "CMS_zz4l_mean_e_err_{0}_{1:.0f}".format(self.channel,self.sqrts)
-        CMS_zz4l_mean_e_err = ROOT.RooRealVar(name,"CMS_zz4l_mean_e_err",float(theInputs['CMS_zz4l_mean_e_sig']))
-        name = "CMS_zz4l_sigma_e_sig"
-        CMS_zz4l_sigma_e_sig = ROOT.RooRealVar(name,"CMS_zz4l_sigma_e_sig",0.0,-0.99,0.99)
+        name = "CMS_zz4l_mean_e_sig_"+self.year
+        CMS_zz4l_mean_e_sig = ROOT.RooRealVar(name,name,0.0,-10.0,10.0)
+        name = "CMS_zz4l_mean_e_err_"+self.year
+        CMS_zz4l_mean_e_err = ROOT.RooRealVar(name,name,float(theInputs['CMS_zz4l_mean_e_sig']))
+        name = "CMS_zz4l_sigma_e_sig_"+self.year
+        CMS_zz4l_sigma_e_sig = ROOT.RooRealVar(name,name,0.0,-0.99,0.99)
 
-        name = "CMS_zz4l_mean_m_sig"
-        CMS_zz4l_mean_m_sig = ROOT.RooRealVar(name,"CMS_zz4l_mean_sig",0.0,-10.0,10.0)
-        name = "CMS_zz4l_mean_m_err_{0}_{1:.0f}".format(self.channel,self.sqrts)
-        CMS_zz4l_mean_m_err = ROOT.RooRealVar(name,"CMS_zz4l_mean_m_err",float(theInputs['CMS_zz4l_mean_m_sig']))
-        name = "CMS_zz4l_sigma_m_sig"
-        CMS_zz4l_sigma_m_sig = ROOT.RooRealVar(name,"CMS_zz4l_sigma_m_sig",0.0,-0.99,0.99)        
+        name = "CMS_zz4l_mean_m_sig_"+self.year
+        CMS_zz4l_mean_m_sig = ROOT.RooRealVar(name,name,0.0,-10.0,10.0)
+        name = "CMS_zz4l_mean_m_err_"+self.year
+        CMS_zz4l_mean_m_err = ROOT.RooRealVar(name,name,float(theInputs['CMS_zz4l_mean_m_sig']))
+        name = "CMS_zz4l_sigma_m_sig_"+self.year
+        CMS_zz4l_sigma_m_sig = ROOT.RooRealVar(name,name,0.0,-0.99,0.99)        
 
         name = "CMS_zz4l_alpha2_{0}_{1:.0f}".format(self.channel,self.sqrts)
         CMS_zz4l_alpha2 = ROOT.RooRealVar(name,"CMS_zz4l_alpha2",0.0,-0.99,0.99)
@@ -953,13 +953,11 @@ class datacardClass:
 	
 
         dataFileDir = "CMSdata"
-
-        dataTreeName = "data_obs" 
-        dataFileName = "CMSdata/hzz2e2mu_35.8671.root"#.format(dataFileDir,self.fs_name,self.cate_name)
+        dataTreeName = "passedEvents" 
+        dataFileName = "CMSdata/RunII/"+self.year+"/hzz_"+self.fs_name+"_"+self.year+"_"+self.type_name+"_"+self.cate_name+"_"+self.totcate_name+".root"
         
 	if (DEBUG): print dataFileName," ",dataTreeName 
         data_obs_file = ROOT.TFile(dataFileName)
-
         print data_obs_file.Get(dataTreeName)
         
         if not (data_obs_file.Get(dataTreeName)):
@@ -969,16 +967,21 @@ class datacardClass:
         
         data_obs_tree = data_obs_file.Get(dataTreeName)
         data_obs = ROOT.RooDataSet()
-        datasetName = "data_obs_{0}_{1}".format(self.fs_name,self.cate_name)
+        datasetName = "data_obs_{0}_{1}_{2}".format(self.year,self.fs_name,self.cate_name)
        	 
         if (self.is2D == 0):
-            if(self.bIncludingError): data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass, MassErr))
-            else: data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass,weight),'',weight.GetName())
-		
+		if(self.bIncludingError): 
+			data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass, MassErr))
+		#else: data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass,weight),'',weight.GetName())#weight used for full simulation study
+		else: 
+			data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass))
+	
         if (self.is2D == 1):
             if(self.bIncludingError):
-                data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass,D,MassErr) )
-            else: data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass,D,weight),'',weight.GetName() )
+		    data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass,D,MassErr) )
+            else: 
+		    #data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass,D,weight),'',weight.GetName() )
+		    data_obs = ROOT.RooDataSet(datasetName,datasetName,data_obs_tree,ROOT.RooArgSet(CMS_zz4l_mass,D))
 
         ## --------------------------- WORKSPACE -------------------------- ##
 
@@ -992,11 +995,11 @@ class datacardClass:
         name_ShapeWS2 = ""
 
 	#datacard name
-        name_Shape = self.outputDir + '/hzz4l_' +self.year+"_"+self.fs_name+"_cat"+self.cate_name+"_"+self.tag_name+".txt"
+        name_Shape = self.outputDir + '/hzz4l_' +self.year+"_"+self.fs_name+"_cat"+self.cate_name+"_"+self.tag_name+"_13TeV.txt"
 	#workspace name
-        name_ShapeWS = self.outputDir + '/hzz4l_' +self.year+"_"+self.fs_name+"_cat"+self.cate_name+"_"+self.tag_name+".input.root"
+        name_ShapeWS = self.outputDir + '/hzz4l_' +self.year+"_"+self.fs_name+"_cat"+self.cate_name+"_"+self.tag_name+"_13TeV.input.root"
 	#workspace name written in datacard
-        name_ShapeWS2 = "hzz4l_"+self.year+"_"+self.fs_name+"_cat"+self.cate_name+"_"+self.tag_name+".input.root"
+        name_ShapeWS2 = "hzz4l_"+self.year+"_"+self.fs_name+"_cat"+self.cate_name+"_"+self.tag_name+"_13TeV.input.root"
         if(DEBUG): print name_Shape,"  ",name_ShapeWS2
         w = ROOT.RooWorkspace("w","w")
         w.importClassCode(RooDoubleCB.Class(),True)
@@ -1012,6 +1015,7 @@ class datacardClass:
                 	signalCB_ZH.SetNameTitle("ZH_hzz","ZH_hzz")						#the bin line string can be set within combineCards.py command
                 	signalCB_ttH.SetNameTitle("ttH_hzz","ttH_hzz")
 			signalCB_bbH.SetNameTitle("bbH_hzz","bbH_hzz")
+			signalCB_tHq.SetNameTitle("tHq_hzz","tHq_hzz")
                 
                 	getattr(w,'import')(signalCB_ggH, ROOT.RooFit.RecycleConflictNodes())
                 	getattr(w,'import')(signalCB_VBF, ROOT.RooFit.RecycleConflictNodes())
@@ -1019,6 +1023,7 @@ class datacardClass:
                 	getattr(w,'import')(signalCB_ZH, ROOT.RooFit.RecycleConflictNodes())
                 	getattr(w,'import')(signalCB_ttH, ROOT.RooFit.RecycleConflictNodes())
 			getattr(w,'import')(signalCB_bbH, ROOT.RooFit.RecycleConflictNodes())
+			getattr(w,'import')(signalCB_tHq, ROOT.RooFit.RecycleConflictNodes())
 	    else:
                 	sig_ggHErr.SetNameTitle("ggH_hzz","ggH_hzz")
                 	sig_VBFErr.SetNameTitle("qqH_hzz","qqH_hzz")
@@ -1026,6 +1031,7 @@ class datacardClass:
                 	sig_ZHErr.SetNameTitle("ZH_hzz","ZH_hzz")
                 	sig_ttHErr.SetNameTitle("ttH_hzz","ttH_hzz")
                 	sig_bbHErr.SetNameTitle("bbH_hzz","bbH_hzz")
+			sig_tHqErr.SetNameTitle("tHq_hzz","tHq_hzz")
 
                 	getattr(w,'import')(sig_ggHErr, ROOT.RooFit.RecycleConflictNodes())
                 	getattr(w,'import')(sig_VBFErr, ROOT.RooFit.RecycleConflictNodes())
@@ -1033,6 +1039,7 @@ class datacardClass:
                 	getattr(w,'import')(sig_ZHErr, ROOT.RooFit.RecycleConflictNodes())
                 	getattr(w,'import')(sig_ttHErr, ROOT.RooFit.RecycleConflictNodes())
 			getattr(w,'import')(sig_bbHErr, ROOT.RooFit.RecycleConflictNodes())
+			getattr(w,'import')(sig_tHqErr, ROOT.RooFit.RecycleConflictNodes())
                 
         if (self.is2D == 1):
         
@@ -1042,6 +1049,7 @@ class datacardClass:
                     sigCB2d_ZH.SetNameTitle("ZH_hzz","ZH_hzz")
                     sigCB2d_ttH.SetNameTitle("ttH_hzz","ttH_hzz")
 		    sigCB2d_bbH.SetNameTitle("bbH_hzz","bbH_hzz")
+		    sigCB2d_tHq.SetNameTitle("tHq_hzz","tHq_hzz")
                 
                     getattr(w,'import')(sigCB2d_ggH, ROOT.RooFit.RecycleConflictNodes())
                     getattr(w,'import')(sigCB2d_VBF, ROOT.RooFit.RecycleConflictNodes())
@@ -1049,6 +1057,7 @@ class datacardClass:
                     getattr(w,'import')(sigCB2d_ZH, ROOT.RooFit.RecycleConflictNodes())
                     getattr(w,'import')(sigCB2d_ttH, ROOT.RooFit.RecycleConflictNodes()) 
 		    getattr(w,'import')(sigCB2d_bbH, ROOT.RooFit.RecycleConflictNodes())
+		    getattr(w,'import')(sigCB2d_tHq, ROOT.RooFit.RecycleConflictNodes())
 
         if (self.is2D == 0):
 		if not self.bIncludingError:
