@@ -11,7 +11,7 @@ def runcombineformass(file_, computer, withsyst, totcat, seed, floatothers, rang
 	if computer == 'local':
 		max_ = 40000
 	else:
-		max_ = 8000000
+		max_ = 1000000
 	events=str(int(math.ceil(max_/int(totcat))))
 	
 	numpy.random.seed(seed)
@@ -48,7 +48,7 @@ def runcombineforwidth(file_,computer, withsyst, totcat, seed, poi, floatothers,
 	if computer == 'local':
 		max_ = 10000
 	else:
-		max_ = 8000000
+		max_ = 1000000
 	events=str(int(math.ceil(max_/int(totcat))))
 	
 	numpy.random.seed(seed)
@@ -62,7 +62,7 @@ def runcombineforwidth(file_,computer, withsyst, totcat, seed, poi, floatothers,
 	outputrootname =  '-n '+outputname+'_'+events+'x'+totcat+'_seed'+str(seed)+'_'+withsyst+'_'+computer
 	outputlogname = outputname+'_'+events+'x'+totcat+'_seed'+str(seed)+'_'+withsyst+'_'+computer+'.log'
 	taskname = '--task-name '+outputname+'_'+events+'x'+totcat+'_seed'+str(seed)+'_'+withsyst+'_'+computer
-	fixed_options = '-M MultiDimFit -d '+outputname+'.root -m 125.38 -P '+poi+' --setParameters HiggsDecayWidth=0.004,MH=125.38,r=1.0 --floatOtherPOIs='+floatothers+' --robustFit=0 --algo=grid --points=20 --expectSignal=1 -t -1 --X-rtd TMCSO_PseudoAsimov='+events+' --X-rtd TMCSO_AdaptivePseudoAsimov=0 -s '+str(rm)
+	fixed_options = '-M MultiDimFit -d '+outputname+'.root -m 125.38 -P '+poi+' --setParameters HiggsDecayWidth=0.004,MH=125.38,r=1.0 --floatOtherPOIs='+floatothers+' --robustFit=0 --algo=grid --points=10 -t -1 --X-rtd TMCSO_PseudoAsimov='+events+' --X-rtd TMCSO_AdaptivePseudoAsimov=0 -s '+str(rm)
 	
 	if withsyst == 'withsyst' and computer == 'local':
 		combline = 'combine '+outputrootname+' '+fixed_options+' '+opt1+' | tee '+outputlogname
@@ -133,10 +133,10 @@ if channel == '4e' or channel == '2e2mu' or channel == '2mu2e':
 		if channel == '4e':
 			ranges['HiggsDecayWidth'] = [0.0,8.0]
 	if syst == 'withsyst':
-		ranges['MH'] = [123.38,127.38]
-		ranges['HiggsDecayWidth'] = [0.0,5.0]
+		ranges['MH'] = [121.38,129.38]
+		ranges['HiggsDecayWidth'] = [0.0,8.0]
 		if channel == '4e':
-			ranges['HiggsDecayWidth'] = [0.0,8.0]
+			ranges['HiggsDecayWidth'] = [0.0,10.0]
 
 if channel == '4mu' or channel == 'allfinalstates':
 	if syst == 'withoutsyst':
@@ -145,6 +145,13 @@ if channel == '4mu' or channel == 'allfinalstates':
 	if syst == 'withsyst':
 		ranges['MH'] = [124.38,126.38]
 		ranges['HiggsDecayWidth'] = [0.0,2.5]
+	currentdir = os.getcwd().split('/')[-1]
+	if '20160' in currentdir and '_m_1_' in currentdir:
+		ranges['MH'] = [122.38,128.38]
+		ranges['HiggsDecayWidth'] = [0.0,3.5]
+	if '20165' in currentdir and '_m_1_' in currentdir:
+		ranges['MH'] = [122.38,128.38]
+		ranges['HiggsDecayWidth'] = [0.0,3.5]
 
 file_list = glob.glob('*allcategs_13TeV.txt')
 newlist = []
