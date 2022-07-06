@@ -1134,7 +1134,7 @@ class datacardClass:
         ## Write Datacards
         fo = open( name_Shape, "wb")
         #self.WriteDatacard(fo,theInputs, name_ShapeWS2, rates, data_obs.numEntries(), self.is2D )
-	self.WriteDatacard(fo,theInputs, name_ShapeWS2, rates, '-1', self.is2D )
+	self.WriteDatacard(fo,theInputs, name_ShapeWS2, rates, data_obs.numEntries(), self.is2D )
         systematics.WriteSystematics(fo, theInputs)
         systematics.WriteShapeSystematics(fo,theInputs)
         fo.close()

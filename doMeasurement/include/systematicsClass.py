@@ -72,7 +72,10 @@ class systematicsClass:
         elif (self.sqrts == 8):
             theFile.write("lumi_8TeV lnN ")
         elif (self.sqrts == 13):
-            theFile.write("lumi_13TeV_"+self.year+" lnN ")
+	    tmpyear = self.year
+	    if self.year=='20160' or self.year=='20165':
+		    tmpyear = '2016'
+            theFile.write("lumi_13TeV_"+tmpyear+" lnN ")
         else:
             raise RuntimeError, "Unknown sqrts in systematics!"
 
