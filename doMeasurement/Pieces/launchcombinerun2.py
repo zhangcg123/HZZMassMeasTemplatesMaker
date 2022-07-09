@@ -110,7 +110,7 @@ def runcombineformasswidth(file_,computer, withsyst, totcat, seed):
 	if withsyst == 'withsyst' and computer == 'condor':
 		combline = 'combineTool.py '+outputrootname+' '+fixed_options+' '+opt3+' '+opt4+' '+opt5+' '+taskname+' | tee '+outputlogname
 	if withsyst == 'withoutsyst' and computer == 'condor':
-		combline = 'combineTool.py '+outputrootname+'_'+fixed_options+' '+opt2+' '+opt3+' '+opt4+' '+opt5+' '+taskname+' | tee '+outputlogname
+		combline = 'combineTool.py '+outputrootname+' '+fixed_options+' '+opt2+' '+opt3+' '+opt4+' '+opt5+' '+taskname+' | tee '+outputlogname
 	
 	#run jobs
 	if not os.path.exists(outputname + '.root'):

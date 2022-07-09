@@ -113,7 +113,7 @@ if not os.path.exists('/eos/user/c/chenguan/www/HZZMASSTEMPLATES_'+dic['inputdir
 	print 'no input HZZ TEMPLATES dir in eos'
 	sys.exit()
 
-for kd in [True]:
+for kd in [False,True]:
 	for dm in [False]:
 		dic['iskd'] = kd
 		dic['isdm'] = dm
