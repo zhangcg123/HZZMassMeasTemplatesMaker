@@ -29,6 +29,10 @@ TH2 *treeToHist2D(TTree *t, TString x, TString y, TString name, TCut cut, double
     }
     h2d->GetXaxis()->SetTitle("m_{H} [GeV]");
     h2d->GetYaxis()->SetTitle("#Gamma_{H} [GeV]");
+    h2d->GetXaxis()->CenterTitle();
+    h2d->GetYaxis()->CenterTitle(); 
+    h2d->GetXaxis()->SetTitleSize(0.05);
+    h2d->GetYaxis()->SetTitleSize(0.05);
     h2d->SetDirectory(0);
     return h2d;
 }
@@ -165,7 +169,12 @@ void styleMultiGraphMarker(TList *tmg, int markerColor, int markerSize, int mark
  *     - the SM marker is not saved
 */
 void contour2D(TString xvar, int xbins, float xmin, float xmax, TString yvar, int ybins, float ymin, float ymax, float smx=1.0, float smy=1.0, TFile *fOut=0, TString path="./", TString name="contour2D") {
-    TCanvas c("c","",1400,1000);
+    TCanvas c("c","",1000,1000);
+    c.SetTicks(1,1);
+    c.SetLeftMargin(0.13);
+    c.SetRightMargin(0.13);
+    c.SetTopMargin(0.13);
+    c.SetBottomMargin(0.13);
     TFile* fin = new TFile(path + name + ".root","READ");
     TTree *tree = (TTree*) fin->Get("limit") ;
     TH2 *hist2d = treeToHist2D(tree, xvar, yvar, "h2d", "", xmin, xmax, ymin, ymax, xbins, ybins);
@@ -208,7 +217,7 @@ void contour2D(TString xvar, int xbins, float xmin, float xmax, TString yvar, in
     //    c95->SetName(name+"_c95");     fOut->WriteTObject(c95,0,"SingleKey");
     //    c997->SetName(name+"_c997");   fOut->WriteTObject(c997,0,"SingleKey");
     //}
-    TLegend* leg = new TLegend(.7,.72,.88,.85);
+    TLegend* leg = new TLegend(.65,.75,.8,.83);
     leg->SetTextSize(0.02);
     leg->SetLineWidth(0);
     leg->SetFillColor(0);
@@ -239,9 +248,9 @@ void contour2D(TString xvar, int xbins, float xmin, float xmax, TString yvar, in
     //TLatex* Lumi_latex_Snowmass = new TLatex(0.7,0.93, "#scale[0.7]{3000 fb^{-1} (14 TeV)}");
     //CMS_status_Snowmass_Phase2->DrawLatex();
     //Lumi_latex_Snowmass->DrawLatex(); 
-    latex->DrawLatex(0.1,0.93, "#scale[0.7]{CMS Run2 Preliminary}");
-    latex->DrawLatex(0.7,0.93, "#scale[0.7]{137 fb^{-1} (13 TeV)}");
-    TPaveText* decayChannel = new TPaveText(0.11,0.85,0.35,0.825, "NDC");
+    latex->DrawLatex(0.12,0.88, "#scale[0.7]{#bf{CMS}} #scale[0.5]{Preliminary}");
+    latex->DrawLatex(0.67,0.88, "#scale[0.7]{138 fb^{-1} (13 TeV)}");
+    TPaveText* decayChannel = new TPaveText(0.20,0.75,0.35,0.825, "NDC");
     decayChannel->SetTextSize(0.04);
     decayChannel->SetFillColor(0); //white background
     decayChannel->AddText("H #rightarrow ZZ^{*} #rightarrow 4I");
