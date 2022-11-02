@@ -56,8 +56,8 @@ int main(int argc, char* argv[]){
          if(isData==1&&year=="2016"&&fs=="muon")f = new TFile("");
          if(isData==1&&year=="2017"&&fs=="muon")f = new TFile("");
          if(isData==1&&year=="2018"&&fs=="muon")f = new TFile("");
-         if(isData==1&&year=="2016pre"&&fs=="electron")f = new TFile("/eos/user/f/ferrico/www/FullRun2/20165/Data_SingleElectron_Run2016pre.root","READ");
-	 if(isData==1&&year=="2016post"&&fs=="electron")f = new TFile("/eos/user/f/ferrico/www/FullRun2/20165/Data_SingleElectron_Run2016post.root","READ");
+         if(isData==1&&year=="2016pre"&&fs=="electron")f = new TFile("/eos/user/c/chenguan/www/Samples/Data_SingleElectron_Run2016pre.root","READ");
+	 if(isData==1&&year=="2016post"&&fs=="electron")f = new TFile("/eos/user/c/chenguan/www/Samples/Data_SingleElectron_Run2016post.root","READ");
          if(isData==1&&year=="2017"&&fs=="electron")f = new TFile("/eos/user/c/chenguan/www/Samples/Data_SingleElectron_2017.root");
          if(isData==1&&year=="2018"&&fs=="electron")f = new TFile("/eos/user/c/chenguan/www/Samples/Data_EGamma_2018.root");
 	
@@ -131,8 +131,8 @@ void MakePlot(Double_t* x_corr, Double_t* x_uncorr, Double_t* y, Double_t* yErr,
 	l5->Draw();
 
 	TLegend *legend=new TLegend(0.65,0.1,0.9,0.3);
-	legend->AddEntry(g1, "Corr_MC", "P");
-	legend->AddEntry(g2, "unCorr_MC", "P");
+	legend->AddEntry(g1, "Corr_DATA", "P");
+	legend->AddEntry(g2, "unCorr_DATA", "P");
 	legend->SetTextSize(0.03);
 	legend->SetLineWidth(2);
 	legend->SetFillColor(0);

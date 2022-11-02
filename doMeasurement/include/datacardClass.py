@@ -224,18 +224,18 @@ class datacardClass:
         self.high_M = 140.0
         
 	##-------------------------- NUISANCES VARIABLES ----------------------------- ##					#different models can and need to share same nuisances, so they aren't assigned with distinc name
-        name = "CMS_zz4l_mean_e_sig_"+self.year
+        name = "CMS_zz4l_mean_e_sig"
         CMS_zz4l_mean_e_sig = ROOT.RooRealVar(name,name,0.0,-10.0,10.0)
-        name = "CMS_zz4l_mean_e_err_"+self.year
+        name = "CMS_zz4l_mean_e_err"
         CMS_zz4l_mean_e_err = ROOT.RooRealVar(name,name,float(theInputs['CMS_zz4l_mean_e_sig']))
-        name = "CMS_zz4l_sigma_e_sig_"+self.year
+        name = "CMS_zz4l_sigma_e_sig"
         CMS_zz4l_sigma_e_sig = ROOT.RooRealVar(name,name,0.0,-0.99,0.99)
 
-        name = "CMS_zz4l_mean_m_sig_"+self.year
+        name = "CMS_zz4l_mean_m_sig"
         CMS_zz4l_mean_m_sig = ROOT.RooRealVar(name,name,0.0,-10.0,10.0)
-        name = "CMS_zz4l_mean_m_err_"+self.year
+        name = "CMS_zz4l_mean_m_err"
         CMS_zz4l_mean_m_err = ROOT.RooRealVar(name,name,float(theInputs['CMS_zz4l_mean_m_sig']))
-        name = "CMS_zz4l_sigma_m_sig_"+self.year
+        name = "CMS_zz4l_sigma_m_sig"
         CMS_zz4l_sigma_m_sig = ROOT.RooRealVar(name,name,0.0,-0.99,0.99)        
 
         name = "CMS_zz4l_alpha2_{0}_{1:.0f}".format(self.channel,self.sqrts)

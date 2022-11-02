@@ -3,7 +3,7 @@ import sys
 import os
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.gStyle.SetPalette(109)
-def contour(path, name): #official macro is used, while the official one has been modified to hold some argmuments(path + name)
+def contour(path, name):
 	commandline = 'root -l -q -b /afs/cern.ch/work/c/chenguan/CMSRunII-HiggsMassMears/HZZMassMeasTemplatesMaker/doMeasurement/Pieces/contours2D.cxx\'("'+path+'","'+name+'")\''
 	os.system(commandline)
 

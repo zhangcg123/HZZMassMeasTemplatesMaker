@@ -14,7 +14,7 @@ def multirun(year, plotpath, cut, isecal, ismc, L_):
 	absetahigh = cut_list[1]
 	deltaptlow = cut_list[2]
 	deltapthigh = cut_list[3]	
-	os.system('./Calibrator.exe '+year+' '+plotpath+' '+absetalow+' '+absetahigh+' '+deltaptlow+' '+deltapthigh+' '+isecal+' '+ismc+' '+str(L_[1])+' '+str(L_[2])+' '+str(L_[3]))
+	os.system('./CalibrateElectrons.exe '+year+' '+plotpath+' '+absetalow+' '+absetahigh+' '+deltaptlow+' '+deltapthigh+' '+isecal+' '+ismc+' '+str(L_[1])+' '+str(L_[2])+' '+str(L_[3]))
 
 #arguments
 year = sys.argv[1]

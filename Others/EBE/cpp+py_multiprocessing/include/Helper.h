@@ -45,9 +45,9 @@ void SetFirst3Lambdas(TString samples, TString year, TString isData){
 				l2 = 1.470;
 				l3 = 1.272;
 			}else{
-				l1 = 1;
-				l2 = 1;
-				l3 = 1;
+				l1 = 1.65;
+				l2 = 1.53;
+				l3 = 1.29;
 			}
 		}
 		if(year == "2016pre"){
@@ -56,9 +56,9 @@ void SetFirst3Lambdas(TString samples, TString year, TString isData){
 				l2 = 1.490;
 				l3 = 1.229;
 			}else{
-				l1 = 1;
-				l2 = 1;
-				l3 = 1;
+				l1 = 1.619;
+				l2 = 1.506;
+				l3 = 1.311;
 			}
 		}
 		if(year == "2017"){

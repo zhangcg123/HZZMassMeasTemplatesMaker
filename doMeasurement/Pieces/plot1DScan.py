@@ -259,3 +259,4 @@ save_graph.GetXaxis().SetTitle('%s = %.3f %+.3f/%+.3f' % (fixed_name, val_nom[0]
 #canv.Print('.pdf')
 canv.Print('.png')
 
+print val_nom, val_2sig

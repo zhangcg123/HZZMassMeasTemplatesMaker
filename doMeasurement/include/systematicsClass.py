@@ -606,18 +606,18 @@ class systematicsClass:
 
         if( self.channel == self.ID_4mu):
 
-                theFile.write("CMS_zz4l_mean_m_sig_"+self.year+" param 0.0 1.0 \n")
-                theFile.write("CMS_zz4l_sigma_m_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
+                theFile.write("CMS_zz4l_mean_m_sig param 0.0 1.0 \n")
+                theFile.write("CMS_zz4l_sigma_m_sig param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
             
         if( self.channel == self.ID_4e):
 
-                theFile.write("CMS_zz4l_mean_e_sig_"+self.year+" param 0.0 1.0 \n")
-                theFile.write("CMS_zz4l_sigma_e_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
+                theFile.write("CMS_zz4l_mean_e_sig param 0.0 1.0 \n")
+                theFile.write("CMS_zz4l_sigma_e_sig param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
             
         if( self.channel == self.ID_2e2mu or self.channel == self.ID_2mu2e ):
 
-                theFile.write("CMS_zz4l_mean_m_sig_"+self.year+" param 0.0 1.0 \n")
-                theFile.write("CMS_zz4l_mean_e_sig_"+self.year+" param 0.0 1.0 \n".format(meanCB_e_errPerCent))
-                theFile.write("CMS_zz4l_sigma_m_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
-                theFile.write("CMS_zz4l_sigma_e_sig_"+self.year+" param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
+                theFile.write("CMS_zz4l_mean_m_sig param 0.0 1.0 \n")
+                theFile.write("CMS_zz4l_mean_e_sig param 0.0 1.0 \n".format(meanCB_e_errPerCent))
+                theFile.write("CMS_zz4l_sigma_m_sig param 0.0 {0} \n".format(sigmaCB_m_errPerCent))
+                theFile.write("CMS_zz4l_sigma_e_sig param 0.0 {0} \n".format(sigmaCB_e_errPerCent))
 

@@ -1,0 +1,1 @@
+combine -M MultiDimFit -d comb_hzz4l.root -m 125.0 -P MH --setParameters MH=125,r=1 --floatOtherPOIs=1 --algo=singles -t -1 --X-rtd TMCSO_PseudoAsimov=10000 --X-rtd TMCSO_AdaptivePseudoAsimov=0 -s 123 --freezeParameters allConstrainedNuisances
