@@ -26,15 +26,18 @@ using namespace RooFit;
 
 bool recursion = false;
 
-double pt1, pt2, pterr1, pterr2, eta1, eta2, phi1, phi2, m1, m2, mass, Iso1, Iso2, masserr, weight_;
+float pt1, pt2, pterr1, pterr2, eta1, eta2, phi1, phi2, m1, m2, mass, Iso1, Iso2, masserr, weight_, RelIso1, RelIso2;
 int lep1_ecalDriven, lep2_ecalDriven, Tight1, Tight2;
 
 double l1, l2, l3;
 
 void SetTree(TTree* t);
+void SetTreeForMuons( TTree* t );
 void MakeOutput(TString plotname, double lambda);
 RooDataHist* MakeDataSet(TTree* t, bool isEcal, double abseta_low, double abseta_high, double deltapt_low, double deltapt_high, double lambda);
+RooDataHist* MakeDataSet(TTree* t, double abseta_low, double abseta_high, double relpterr_low, double relpterr_high);
 double EBECalculator(TTree* t, bool isEcal, TString plotname, double abseta_low, double abseta_high, double deltapt_low, double deltapt_high, double lambda, int inter);
+double EBECalculator(TTree* t_, TString plotname, double abseta_low, double abseta_high, double relpterr_low, double relpterr_high);
 void SetFirst3Lambdas(TString samples, TString year, TString isData);
 
 void SetFirst3Lambdas(TString samples, TString year, TString isData){
@@ -136,6 +139,34 @@ void SetTree(TTree* t){
 	t->SetBranchAddress("lep1_ecalDriven",&lep1_ecalDriven);
 	t->SetBranchAddress("lep2_ecalDriven",&lep2_ecalDriven);
 }
+
+RooDataHist* MakeDataSet(TTree* t, double abseta_low, double abseta_high, double relpterr_low, double relpterr_high){
+	TH2D* histo = new TH2D("histo","",100,80,100,20,0,5);
+	int totEvt = t->GetEntries();
+	TLorentzVector lep1, lep2, lep1p, lep2p;
+	for(int i=0; i<totEvt; i++){
+		if(i%1000000==0)cout<<i<<"/"<<totEvt<<endl;
+		t->GetEntry(i);
+		if( mass < 100 && mass > 80 && (pterr1/pt1) < relpterr_high && (pterr2/pt2) < relpterr_high && (pterr1/pt1) > relpterr_low && (pterr2/pt2) > relpterr_low && abs(eta1) < abseta_high && abs(eta1) > abseta_low && abs(eta2) > abseta_low && abs(eta2) < abseta_high ){
+			lep1.SetPtEtaPhiM(pt1,eta1,phi1,m1);
+			lep2.SetPtEtaPhiM(pt2,eta2,phi2,m2);
+			lep1p.SetPtEtaPhiM(pt1+pterr1,eta1,phi1,m1);
+			lep2p.SetPtEtaPhiM(pt2+pterr2,eta2,phi2,m2);
+			double dm1 = (lep1+lep2p).M() - (lep1+lep2).M();
+			double dm2 = (lep1p+lep2).M() - (lep1+lep2).M();
+			masserr = TMath::Sqrt(dm1*dm1 + dm2*dm2);
+			histo->Fill(mass,masserr);
+		}
+	}
+	RooRealVar massZ("massZ","",80,100);
+	RooRealVar massZErr("massZErr","",0,5);
+	massZ.setBins(2000,"cache");
+	massZErr.setBins(20,"cache");
+	RooDataHist* Data = new RooDataHist("Data","",RooArgSet(massZ,massZErr),Import(*histo));	
+	delete histo;
+	return Data;
+}
+
 RooDataHist* MakeDataSet(TTree* t, bool isEcal, double abseta_low, double abseta_high, double deltapt_low, double deltapt_high, double lambda){
 	//ecal cut
 	int ecal1, ecal2;
@@ -223,4 +254,22 @@ RooDataHist* MakeDataSet(TTree* t, bool isEcal, double abseta_low, double abseta
 	RooDataHist* Data = new RooDataHist("Data","",RooArgSet(massZ,massZErr),Import(*histo));	
 	delete histo;
 	return Data;
+}
+
+void SetTreeForMuons( TTree* t ){
+        t->SetBranchAddress("mass2mu_corr",&mass);
+        t->SetBranchAddress("eta1",&eta1);
+        t->SetBranchAddress("eta2",&eta2);
+        t->SetBranchAddress("pt1",&pt1);
+        t->SetBranchAddress("pt2",&pt2);
+        t->SetBranchAddress("lep1_pterr",&pterr1);
+        t->SetBranchAddress("lep2_pterr",&pterr2);
+        //t->SetBranchAddress("lep1_pterrold",&pterr1_uncorr);
+        //t->SetBranchAddress("lep2_pterrold",&pterr2_uncorr);
+        t->SetBranchAddress("m1",&m1);
+        t->SetBranchAddress("m2",&m2);
+        t->SetBranchAddress("phi1",&phi1);
+        t->SetBranchAddress("phi2",&phi2);
+        t->SetBranchAddress("RelIso1",&RelIso1);
+        t->SetBranchAddress("RelIso2",&RelIso2);
 }

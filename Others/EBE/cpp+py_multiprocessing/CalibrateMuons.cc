@@ -6,51 +6,48 @@ int main(int argc, char* argv[]){
 	TString plotpath = argv[2];
 	string abseta_low = argv[3];
 	string abseta_high = argv[4];
-	string deltapt_low = argv[5];
-	string deltapt_high = argv[6];
-	string trackElectron = argv[7];
-	string isData = argv[8];
+	string relpterr_low = argv[5];
+	string relpterr_high = argv[6];
+	string isData = argv[7];
 	
-	//electron type
-	bool isEcal=true;
-	if(trackElectron=="trk")isEcal=false;
 	//plot name
-	TString plotname = plotpath + trackElectron + "_eta_"+abseta_low+"_"+abseta_high+"_deltapt_"+deltapt_low+"_"+deltapt_high;
+	TString plotname = plotpath + "_eta_"+abseta_low+"_"+abseta_high+"_"+relpterr_low+"_"+relpterr_high;
 	
 	//open and set tree
-	TString base = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/"	
-	TFile* f = new TFile();
-	if(isData == "mc" && year == "2016post")f = new TFile("","READ");
-	if(isData == "mc" && year == "2016pre") f = new TFile("","READ");
-	if(isData == "mc" && year == "2017") f = new TFile("","READ");
-	if(isData == "mc" && year == "2018") f = new TFile("","READ");
-	if(isData == "data" && year == "2016post") f = new TFile("","READ");
-	if(isData == "data" && year == "2016pre") f = new TFile("","READ");
-	if(isData == "data" && year == "2017") f = new TFile("","READ");
-	if(isData == "data" && year == "2018") f = new TFile("","READ");
+        TString fname = "";         
+         if(isData=="mc"&&year=="2016pre")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_DYJetsToLL_M50_2016APV_2mu_slimmed.root"; 
+         if(isData=="mc"&&year=="2016post")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_DYJetsToLL_M50_2016_2mu_slimmed.root";
+         if(isData=="mc"&&year=="2017")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_DYJetsToLL_M50_2017_new_2mu_slimmed.root";
+         if(isData=="mc"&&year=="2018")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_DYJetsToLL_M50_2018_2mu_slimmed.root";
+            
+         if(isData=="data"&&year=="2016pre")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_SingleMuon2016HIPM_2mu_slimmed.root"; 
+         if(isData=="data"&&year=="2016post")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_SingleMuonRun2016_2mu_slimmed.root";
+         if(isData=="data"&&year=="2017")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_SingleMuon_Run17_2mu_slimmed.root";
+         if(isData=="data"&&year=="2018")fname = "/eos/user/c/chenguan/Tuples/LeptonScale_20SummerUltraLegacy/newbranch/crab_SingleMuon_Run18_2mu_slimmed.root";
+		
+	TFile* f = new TFile(fname,"READ");
 	TTree* t = (TTree*)f->Get("passedEvents");
-	SetTree(t);	  	
+	SetTreeForMuons(t);	  	
 	
 	//extract lambda
-	SetFirst3Lambdas("madgraph",year,isData);
-	double lambda = EBECalculator(t, isEcal, plotname, stof(abseta_low), stof(abseta_high), stof(deltapt_low), stof(deltapt_high), 1, 0);
+	double lambda = EBECalculator(t, plotname, stof(abseta_low), stof(abseta_high), stof(relpterr_low), stof(relpterr_high) );
 	MakeOutput(plotname, lambda);		
+
 }
-double EBECalculator(TTree* t_, bool isEcal, TString plotname, 
-	double abseta_low, double abseta_high, double deltapt_low, double deltapt_high, 
-	double running_sf, int inter){
-	
-	RooDataHist* Data = MakeDataSet(t_, isEcal, abseta_low, abseta_high, deltapt_low, deltapt_high, running_sf);
+
+double EBECalculator(TTree* t_, TString plotname, 
+	double abseta_low, double abseta_high, double relpterr_low, double relpterr_high){
+	RooDataHist* Data = MakeDataSet(t_, abseta_low, abseta_high, relpterr_low, relpterr_high);
 	Data->Print();
 	TString entries = to_string(Data->sumEntries());
 	//model building and fit to
 	//common variables
-	RooRealVar massZ("massZ","",60,120);
-	RooRealVar massZErr("massZErr","",0,15);
-	massZ.setBins(100,"cache");
-	massZErr.setBins(100,"cache");		
+	RooRealVar massZ("massZ","",80,100);
+	RooRealVar massZErr("massZErr","",0,5);
+	massZ.setBins(2000,"cache");
+	massZErr.setBins(20,"cache");		
 	RooRealVar GENmZ("GENmZ","",91.19);
-	RooRealVar GENwZ("GENwZ","",2.44);
+	RooRealVar GENwZ("GENwZ","",2.49);
 	GENmZ.setConstant(kTRUE);
 	GENwZ.setConstant(kTRUE);
 	RooBreitWigner GENZ("GENZ","",massZ,GENmZ,GENwZ);
@@ -63,12 +60,12 @@ double EBECalculator(TTree* t_, bool isEcal, TString plotname,
 	RooRealVar n2("n2","",5,0,60);
 	RooCBShape DCB("DCB","",massZ,mean,sigma,a1,n1);
 	//RooDoubleCB DCB("DCB","",massZ,mean,sigma,a1,n1,a2,n2);
-	RooFFTConvPdf BW_DCB("BW_DCB","",massZ,GENZ,DCB);
-	BW_DCB.setBufferFraction(0.2);
+	RooFFTConvPdf Model("BW_DCB","",massZ,GENZ,DCB);
+	Model.setBufferFraction(0.3);
 	RooRealVar t("t","",0,-1,1);
 	RooRealVar fsig("fsig","",0.9,0.7,1);
 	RooExponential bkg("bkg","",massZ,t);
-	RooAddPdf Model("Model","",BW_DCB,bkg,fsig);
+	//RooAddPdf Model("Model","",BW_DCB,bkg,fsig);
 	//1D fit to
 	auto start = std::chrono::high_resolution_clock::now();	
 	Model.fitTo(*Data,SumW2Error(kTRUE),PrintLevel(-9999));
@@ -88,13 +85,21 @@ double EBECalculator(TTree* t_, bool isEcal, TString plotname,
 	n1.setConstant(kTRUE);
 	a2.setConstant(kTRUE);
 	n2.setConstant(kTRUE);
+	TString mean_s = to_string(mean.getVal());
+	TString sigma_s = to_string(sigma.getVal());
+	TString a1_s = to_string(a1.getVal());
+	TString a2_s = to_string(a2.getVal());
+	TString n1_s = to_string(n1.getVal());
+	TString n2_s = to_string(n2.getVal());
+	TString fsig_s = to_string(fsig.getVal());
+	TString t_s = to_string(t.getVal()); 
 	RooCBShape DCB_2d("DCB_2d","",massZ,mean,sigma_2d,a1,n1);
 	//RooDoubleCB DCB_2d("DCB_2d","",massZ,mean,sigma_2d,a1,n1,a2,n2);
-	RooFFTConvPdf BW_DCB_2d("BW_DCB_2d","",massZ,GENZ,DCB_2d);
-	BW_DCB_2d.setBufferFraction(0.2);
+	RooFFTConvPdf Model_2d("BW_DCB_2d","",massZ,GENZ,DCB_2d);
+	Model_2d.setBufferFraction(0.3);
 	t.setConstant(kTRUE);
 	fsig.setConstant(kTRUE);
-	RooAddPdf Model_2d("Model_2d","",BW_DCB_2d,bkg,fsig);	
+	//RooAddPdf Model_2d("Model_2d","",BW_DCB_2d,bkg,fsig);	
 	//2D fit to
 	start = std::chrono::high_resolution_clock::now();
 	Model_2d.fitTo(*Data,ConditionalObservables(massZErr),SumW2Error(kTRUE),PrintLevel(-999),Timer(kTRUE));
@@ -118,11 +123,16 @@ double EBECalculator(TTree* t_, bool isEcal, TString plotname,
 	latex->DrawLatex(0.7,0.99,"#chi^{2}/DOF="+chi2_s);
 	latex->DrawLatex(0.7,0.9,"lambda="+lambda_s);
 	latex->DrawLatex(0.7,0.8,"entries="+entries);
-	c.SaveAs(plotname+"_v"+to_string(inter)+".png");
+	latex->DrawLatex(0.7,0.7,"mean="+mean_s);
+	latex->DrawLatex(0.7,0.6,"sigma="+sigma_s);
+	latex->DrawLatex(0.7,0.5,"a1="+a1_s);
+	latex->DrawLatex(0.7,0.4,"a2="+a2_s);
+	latex->DrawLatex(0.7,0.3,"n1="+n1_s);
+	latex->DrawLatex(0.7,0.2,"n2="+n2_s);
+	latex->DrawLatex(0.7,0.1,"fsig="+fsig_s);
+	latex->DrawLatex(0.3,0.1,"t="+t_s);
+	c.SaveAs(plotname+".png");
+	double running_sf=1.0;
 	double final_sf = running_sf * SF.getVal();
-	if(recursion==true && abs(SF.getVal()-1)>0.001 && inter < 6){
-		inter = inter + 1;
-		final_sf = EBECalculator(t_, isEcal, plotname, abseta_low, abseta_high, deltapt_low, deltapt_high, final_sf, inter);
-	}
 	return final_sf;
 }

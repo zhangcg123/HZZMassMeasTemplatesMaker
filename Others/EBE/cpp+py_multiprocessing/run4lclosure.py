@@ -13,7 +13,7 @@ assert year in ['20160', '20165', '2017', '2018'],'errrrrrrrrrrrrrrrrrrrrr'
 
 #output dir
 dirclass = DirTree()
-dirclass.mkrootdir(year+'_closure_with_4lepton_evnets')
+dirclass.mkrootdir(year+'_closure_with_4lepton_events_remove00')
 
 path = dirclass.root
 os.system('./Closure4Lepton.exe '+year+' '+path)
