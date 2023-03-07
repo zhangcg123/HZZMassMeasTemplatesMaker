@@ -166,15 +166,16 @@ class datacardClass:
         systematics = systematicsClass( self.mH, False, self.isFSR, theInputs, self.year)
         
 	## ------------------------- GENERAL VARIABLES ------------------------------- ##					#general variables represent the same things across different models, they don't have unique name
-        bins = 20000#the old number is 700
+        bins = 98000#the old number is 700
         #if(self.bIncludingError) :
         #  bins = 1000
 
         CMS_zz4l_mass_name = "CMS_zz4l_mass"											#first dimentional
         CMS_zz4l_mass = ROOT.RooRealVar(CMS_zz4l_mass_name,CMS_zz4l_mass_name,self.low_M,self.high_M)    
-        CMS_zz4l_mass.setBins(bins);
-	#CMS_zz4l_mass.setBins(,"cache")
-        	
+        #CMS_zz4l_mass.setBins(bins);
+	CMS_zz4l_mass.setBins(700)
+	CMS_zz4l_mass.setBins(bins,"cache")
+		
         merrVarName = "CMS_zz4l_massErr"											#second dimentional
         Template = fi.Get('ggh_'+self.year+'_'+self.fs_name+'_'+self.cate_name+'_'+self.tag_name+'_dm')
         Template.SetDirectory(0)
@@ -419,6 +420,16 @@ class datacardClass:
         DmggzzTempDataHist = ROOT.RooDataHist(TemplateName,TemplateName,ROOT.RooArgList(MassErr),DmggzzTemplate)
         name = "pdfErr_ggzz_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
         pdfErrggZZ = ROOT.RooHistPdf(name,name,ROOT.RooArgSet(MassErr),DmggzzTempDataHist)
+	
+	'''
+	print "pdferr zjets"
+	DmzjetsTemplate = fi.Get('ggzz_'+self.year+'_'+self.fs_name+'_'+self.cate_name+'_'+self.tag_name+'_dm')
+	DmzjetsTemplate.SetDirectory(0)
+	TmplateName = "HistPdf_zjetsDm_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+	DmzjetsTempDataHist = ROOT.RooDataHist(TemplateName,TemplateName,ROOT.RooArgList(MassErr),DmzjetsTemplate)
+	name = "pdfErr_zjets_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
+	pdfErrZX = ROOT.RooHistPdf(name,name,ROOT.RooArgSet(MassErr),DmzjetsTempDataHist)
+	'''
 
         ##Z+X using template										#something need to be considered
         print "pdferr ZX"
@@ -518,13 +529,15 @@ class datacardClass:
 		signalCB_bbH = ROOT.RooaDoubleCBxBW(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_Approx, self.getVariable(rfv_MassErr,rfv_sigma_approx, self.bIncludingError), alpha_approx, alpha2_approx, self.MH, self.HiggsDecayWidth, n1_, n2_, theta1, theta2, False)
 	##---------------------------------------------------------------tHq
 	name = "signalCB_tHq_{0}_{1}_{2}_{3}".format(self.year,self.fs_name,self.cate_name,self.tag_name)
-	if (self.MassOnly) : signalCN_bbH = ROOT.RooDoubleCB(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_NoConv, self.getVariable(rfv_MassErr,rfv_sigma_CB, self.bIncludingError),rfv_alpha_CB,rfv_n_CB, rfv_alpha2_CB, rfv_n2_CB)
+	if (self.MassOnly) : signalCB_tHq = ROOT.RooDoubleCB(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_NoConv, self.getVariable(rfv_MassErr,rfv_sigma_CB, self.bIncludingError),rfv_alpha_CB,rfv_n_CB, rfv_alpha2_CB, rfv_n2_CB)
 	if (not self.MassOnly and self.FFT) :
 		DetectorReso_tHq = ROOT.RooDoubleCB(name+'_reco',name,CMS_zz4l_mass, CMS_zz4l_mean_sig_Conv, self.getVariable(rfv_MassErr,rfv_sigma_CB, self.bIncludingError), rfv_alpha_CB,rfv_n_CB, rfv_alpha2_CB, rfv_n2_CB)
 		signalCB_tHq = ROOT.RooFFTConvPdf(name,name,CMS_zz4l_mass,HiggsBreitWigner,DetectorReso_tHq,2)
 	if (not self.MassOnly and not self.FFT) :
-		signalCB_bbH = ROOT.RooaDoubleCBxBW(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_Approx, self.getVariable(rfv_MassErr,rfv_sigma_approx, self.bIncludingError), alpha_approx, alpha2_approx, self.MH, self.HiggsDecayWidth, n1_, n2_, theta2, theta2, False)
-
+		signalCB_tHq = ROOT.RooaDoubleCBxBW(name, name, CMS_zz4l_mass, CMS_zz4l_mean_sig_Approx, self.getVariable(rfv_MassErr,rfv_sigma_approx, self.bIncludingError), alpha_approx, alpha2_approx, self.MH, self.HiggsDecayWidth, n1_, n2_, theta2, theta2, False)
+	print '#######'
+	print self.HiggsDecayWidth.getVal()
+	print '#######'
 
 
 	if (self.FFT and not self.MassOnly):
@@ -828,7 +841,7 @@ class datacardClass:
         name = "bkg2d_zjets" + '_' + self.year + '_' + self.fs_name + '_' + self.cate_name + '_' + self.tag_name
         bkg2d_zjets = ROOT.RooProdPdf(name,name,ROOT.RooArgSet(self.getVariable(bkg_zjetsErr,bkg_zjets,self.bIncludingError)),ROOT.RooFit.Conditional(ROOT.RooArgSet(bkgTemplateMorphPdf_zjets),ROOT.RooArgSet(D) ) )
 	
-	CMS_zz4l_mass.setBins(bins)
+	#CMS_zz4l_mass.setBins(bins)
 	##------------------- LUMI -------------------- ##
 
         rrvLumi = ROOT.RooRealVar("cmshzz4l_lumi","cmshzz4l_lumi",self.lumi)  
@@ -1141,34 +1154,50 @@ class datacardClass:
 
 	## --------------------------------------------- PLOTS FOR SANITY CHECKS ------------------------------- ##	every time update the old one
 	'''
-	#if sanitycheckdir != '':
-		#frame = CMS_zz4l_mass.frame()
-		#signalCB_ZH.plotOn(frame,ROOT.RooFit.LineColor(1))
-		#signalCB_WH.plotOn(frame,ROOT.RooFit.LineColor(2))
-		#signalCB_ggH.plotOn(frame,ROOT.RooFit.LineColor(3))
-		#signalCB_ttH.plotOn(frame,ROOT.RooFit.LineColor(4))
-		#bkg_ggzz.plotOn(frame,ROOT.RooFit.LineColor(5))
-		#bkg_qqzz.plotOn(frame,ROOT.RooFit.LineColor(6))
-		#bkg_zjets.plotOn(frame,ROOT.RooFit.LineColor(7))
-	c = ROOT.TCanvas('c','',1400,1000)
-		#frame.Draw()
-		#if self.MassOnly: name = 'dcb'
-		#if not self.MassOnly and self.FFT: name = 'fft'
-		#if not self.MassOnly and not self.FFT: name = 'approx'
-		#c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_ggH_'+self.fs_name+'_'+self.cate_name+'.png')
-	sigTemplate.Draw('colz')
-	c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/sigkdmap_af.png')
-	c.Clear()
-	qqzzbkgTemplate.Draw('colz')
-	c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/qqzzkdmap_af.png')
-	c.Clear()
-	ggzzbkgTemplate.Draw('colz')
-	c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/ggzzkdmap_af.png')
-	c.Clear()
-	zxbkgTemplate.Draw('colz')
-	c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/zjetskdmap_af.png')
-	c.Clear()
+	sanitycheckdir = '1'
+	if sanitycheckdir != '':
+		frame = CMS_zz4l_mass.frame()
+		signalCB_ZH.plotOn(frame,ROOT.RooFit.LineColor(1))
+		signalCB_WH.plotOn(frame,ROOT.RooFit.LineColor(2))
+		signalCB_ggH.plotOn(frame,ROOT.RooFit.LineColor(3))
+		signalCB_ttH.plotOn(frame,ROOT.RooFit.LineColor(4))
+		bkg_ggzz.plotOn(frame,ROOT.RooFit.LineColor(5))
+		bkg_qqzz.plotOn(frame,ROOT.RooFit.LineColor(6))
+		bkg_zjets.plotOn(frame,ROOT.RooFit.LineColor(7))
+		c = ROOT.TCanvas('c','',1400,1000)
+		frame.Draw()
+		if self.MassOnly: name = 'dcb'
+		if not self.MassOnly and self.FFT: name = 'fft'
+		if not self.MassOnly and not self.FFT: name = 'approx'
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_ggH_'+self.fs_name+'_'+self.cate_name+'.png')
+		sigTemplate.Draw('colz')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_sigkdmap_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
+		qqzzbkgTemplate.Draw('colz')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_qqzzkdmap_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
+		ggzzbkgTemplate.Draw('colz')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_ggzzkdmap_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
+		zxbkgTemplate.Draw('colz')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_zjetskdmap_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
 
+		DmSigTemplate.Draw('hist')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_DmSig_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
+		DmqqzzTemplate.Draw('hist')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_Dmqqzz_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
+		DmggzzTemplate.Draw('hist')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_Dmggzz_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
+		DmzjetsTemplate.Draw('hist')
+		c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/'+name+'_Dmzjets_af_'+self.fs_name+'_'+self.cate_name+'.png')
+		c.Clear()
+		
+			
+	
 	sigTemplate_beforeFix.Draw('colz')
 	c.SaveAs('/eos/user/c/chenguan/www/DataCardPlots/sigkdmap_bf.png')
 	c.Clear()
@@ -1191,11 +1220,6 @@ class datacardClass:
 	zxbkgTemplate.Write()
 	f_zjets.Close()
 	'''
-
-
-
-
-
 
     def WriteDatacard(self,file,theInputs,nameWS,theRates,obsEvents,is2D,isAltCard=False,AltLabel="",bVBF=False,VBFcat=""):
 
