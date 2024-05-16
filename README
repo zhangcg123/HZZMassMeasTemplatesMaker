@@ -2,4 +2,4 @@ under cmssw10612 and combinelimit v8.0.2,
 
 from HZZ4LUFAnalyzer tuples to Higgs mass and on-shell measurements
 
-for hzz this branch
+for hgg this branch, but only the doMeasurement part is used
