@@ -1,0 +1,47 @@
+############## Inputs for 4e for 8 TeV  ##############
+## SM ##
+model SM
+
+## decay chan ##
+decay 4e
+
+## lumi ##
+lumi 16.810
+systematic lumiUnc 1.01
+systematic lumiUncCorrelated_16_17_18 1.006
+
+## sqrtS ##
+sqrts 13
+
+## Channels to include in cards ##
+#channels ggH ggZZ
+channels ggH qqH WH ZH ttH bbH tHq qqZZ ggZZ zjets
+
+## rates --- format = chan N lumi ##
+## if lumi is blank, lumi for cards used ##
+rate qqZZ  999
+rate ggZZ  999
+rate zjets 999
+
+## signal functions --- no spaces! ##
+signalShape n_CB (5.54037295934+(-0.0686672890921)*(@0-125))*(1+@1)
+signalShape alpha_CB (0.744232722334)+(0*@0)
+signalShape n2_CB (5.52294539756+(0.194030101663)*(@0-125))
+signalShape alpha2_CB (1.39075508491)+(0*@0)
+signalShape mean_CB   (124.711610542+(0.994980862782)*(@0-125))
+signalShape sigma_CB  (1.69738413126+(0.0100692479936)*(@0-125))*(1+@1)
+
+### channel dependent systematics ###
+systematic param CMS_zz4l_mean_e_sig   0.0015
+systematic param CMS_zz4l_sigma_e_sig  0.1
+systematic param CMS_zz4l_n_sig 0.05
+systematic param CMS_zz4l_n2_sig 0.05
+
+### mu and ele recoID eff ###
+systematic ele_signal 0.913647 1.09139
+systematic ele_ggZZ 0.905001 1.10115
+systematic ele_qqZZ 0.897794 1.10911
+
+### Z+X systematic ###
+systematic zjetsKappaLow 0.676293
+systematic zjetsKappaHigh 1.32392

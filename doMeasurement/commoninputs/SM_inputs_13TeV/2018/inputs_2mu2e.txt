@@ -1,0 +1,53 @@
+############## Inputs for 2e2mu for 8 TeV  ##############
+## SM ##
+model SM
+
+## decay chan ##
+decay 2mu2e
+
+## lumi ##
+lumi 59.83
+systematic lumiUnc 1.015
+systematic lumiUncCorrelated_16_17_18 1.02
+systematic lumiUncCorrelated_17_18 1.002
+
+## sqrtS ##
+sqrts 13
+
+## Channels to include in cards ##
+#channels ggH ggZZ
+channels ggH qqH WH ZH ttH bbH tHq qqZZ ggZZ zjets
+
+## rates --- format = chan N lumi ##
+## if lumi is blank, lumi for cards used ##
+rate qqZZ  999
+rate ggZZ  999
+rate zjets 999
+
+## signal functions --- no spaces! ##
+signalShape n_CB (3.18098806656+(-0.0188855891779)*(@0-125))*(1+@1)
+signalShape alpha_CB (0.927601791812)+(0*@0)
+signalShape n2_CB (3.98349053402+(0.0517139624607)*(@0-125))
+signalShape alpha2_CB (1.56743054428)+(0*@0)
+signalShape mean_CB (124.771931539+(0.998407660986)*(@0-125))
+signalShape sigma_CB (1.42180192725+(0.0100469936221)*(@0-125))*(1+@1+@2)
+
+### channel dependent systematics ###
+systematic param CMS_zz4l_mean_m_sig   0.0003
+systematic param CMS_zz4l_sigma_m_sig  0.03
+systematic param CMS_zz4l_mean_e_sig   0.0015
+systematic param CMS_zz4l_sigma_e_sig  0.1
+systematic param CMS_zz4l_n_sig 0.05
+systematic param CMS_zz4l_n2_sig 0.05
+
+### mu and ele recoID eff ###
+systematic mu_signal 0.997433 1.00257
+systematic ele_signal 0.925639 1.07715
+systematic mu_ggZZ 0.994466 1.00554
+systematic ele_ggZZ 0.923845 1.07902
+systematic mu_qqZZ 0.995483 1.00452
+systematic ele_qqZZ 0.911613 1.09237
+
+### Z+X systematic ###
+systematic zjetsKappaLow 0.662797
+systematic zjetsKappaHigh 1.33717
